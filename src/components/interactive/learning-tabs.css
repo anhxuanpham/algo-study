@@ -1,0 +1,40 @@
+.learning-tabs {
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.learning-tabs__list {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border);
+}
+
+.learning-tabs__tab {
+  min-height: 2.75rem;
+  flex: 0 0 auto;
+  padding-inline: var(--space-4);
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 0.2rem solid transparent;
+  background: var(--surface-muted);
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.learning-tabs__tab[aria-selected='true'] {
+  border-bottom-color: var(--primary);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.learning-tabs__panel {
+  padding: var(--space-6);
+}
+
+.learning-tabs__panel p:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,42 @@
+.theme-control {
+  display: inline-flex;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin: 0;
+  background: var(--surface-muted);
+}
+
+.theme-option {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding-inline: 0.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 650;
+}
+
+.theme-option:hover {
+  color: var(--ink);
+}
+
+.theme-option[aria-pressed='true'] {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+@media (max-width: 42rem) {
+  .theme-option span {
+    display: none;
+  }
+}

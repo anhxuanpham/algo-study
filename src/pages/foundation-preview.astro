@@ -1,0 +1,176 @@
+---
+import { FoundationDialog } from '../components/interactive/foundation-dialog';
+import { LearningTabs } from '../components/interactive/learning-tabs';
+import ButtonLink from '../components/ui/button-link.astro';
+import Callout from '../components/ui/callout.astro';
+import CodeFrame from '../components/ui/code-frame.astro';
+import EmptyState from '../components/ui/empty-state.astro';
+import ErrorState from '../components/ui/error-state.astro';
+import ProgressMeter from '../components/ui/progress-meter.astro';
+import SkeletonBlock from '../components/ui/skeleton-block.astro';
+import StatusBadge from '../components/ui/status-badge.astro';
+import TextInput from '../components/ui/text-input.astro';
+import LearningLayout from '../layouts/learning-layout.astro';
+
+const sampleCode = `function binarySearch(values: number[], target: number) {
+  let left = 0;
+  let right = values.length - 1;
+
+  while (left <= right) {
+    const middle = left + Math.floor((right - left) / 2);
+    if (values[middle] === target) return middle;
+    if (values[middle] < target) left = middle + 1;
+    else right = middle - 1;
+  }
+
+  return -1;
+}`;
+---
+
+<LearningLayout
+  title="Foundation preview"
+  description="Bản xem trước design system và learning shell của Algo Study."
+>
+  <header class="lesson-header">
+    <div class="lesson-header__meta">
+      <StatusBadge tone="ready">Foundation preview</StatusBadge>
+      <p class="eyebrow">12 phút · Beginner · TypeScript</p>
+    </div>
+    <h1>Binary search:<br /><em>giữ invariant đúng</em></h1>
+    <p>
+      Một page mẫu để kiểm tra reader measure, semantic hierarchy, code overflow, callout và
+      component states trước khi xây content pipeline.
+    </p>
+  </header>
+
+  <section id="concept" class="lesson-section">
+    <p class="eyebrow">01 / Concept</p>
+    <h2>Không phải “chặt đôi”. Đó là loại bỏ vùng không thể chứa đáp án.</h2>
+    <p>
+      Ở đầu mỗi vòng lặp, nếu target tồn tại thì nó phải nằm trong đoạn từ <code>left</code> tới
+      <code>right</code>. Mỗi comparison phải giữ mệnh đề này đúng.
+    </p>
+    <Callout title="Invariant">
+      Trước mỗi iteration: mọi index nhỏ hơn <code>left</code> hoặc lớn hơn <code>right</code> đã bị loại
+      bằng một lập luận đúng.
+    </Callout>
+  </section>
+
+  <section id="example" class="lesson-section">
+    <p class="eyebrow">02 / Worked example</p>
+    <h2>Code frame có local horizontal scroll.</h2>
+    <CodeFrame label="binary-search.ts">
+      <pre><code>{sampleCode}</code></pre>
+    </CodeFrame>
+  </section>
+
+  <section id="checkpoint" class="lesson-section">
+    <p class="eyebrow">03 / Component states</p>
+    <h2>Foundation primitives</h2>
+    <div class="component-stack">
+      <ProgressMeter label="Lesson evidence" value={60} />
+      <TextInput
+        id="search-pattern"
+        label="Tìm pattern"
+        hint="Thử thuật ngữ tiếng Việt hoặc English alias."
+        placeholder="Ví dụ: binary search on answer"
+        type="search"
+      />
+      <LearningTabs
+        client:load
+        label="Các góc nhìn binary search"
+        tabs={[
+          {
+            id: 'invariant',
+            label: 'Invariant',
+            content: 'Nếu target tồn tại, nó luôn nằm trong đoạn tìm kiếm còn lại.',
+          },
+          {
+            id: 'complexity',
+            label: 'Complexity',
+            content: 'Mỗi bước loại khoảng một nửa miền tìm kiếm: O(log n) time.',
+          },
+          {
+            id: 'edge-cases',
+            label: 'Edge cases',
+            content:
+              'Kiểm tra empty array, boundary, duplicate values và overflow khi tính middle.',
+          },
+        ]}
+      />
+      <FoundationDialog
+        client:idle
+        triggerLabel="Mở dialog mẫu"
+        title="Native dialog, focus được quản lý"
+        description="Escape đóng dialog; sau khi đóng, focus quay lại nút đã mở nó."
+      />
+      <SkeletonBlock label="Đang tải review queue mẫu" />
+      <EmptyState
+        id="review-empty"
+        title="Chưa có review đến hạn"
+        description="Khi có retrieval evidence, review queue sẽ xuất hiện ở đây."
+      >
+        <ButtonLink href="/" variant="secondary">Về tổng quan</ButtonLink>
+      </EmptyState>
+      <ErrorState
+        id="progress-error"
+        title="Không thể lưu progress"
+        recovery="Nội dung vẫn hoạt động. Kiểm tra quyền lưu trữ hoặc export dữ liệu trước khi thử lại."
+      />
+    </div>
+  </section>
+</LearningLayout>
+
+<style>
+  .lesson-header {
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .lesson-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .lesson-header__meta .eyebrow {
+    margin: 0;
+  }
+
+  h1 {
+    margin: var(--space-8) 0 var(--space-6);
+    font-size: var(--text-3xl);
+    letter-spacing: -0.055em;
+  }
+
+  h1 em {
+    color: var(--primary);
+    font-weight: 450;
+  }
+
+  .lesson-header > p:last-child {
+    max-width: 58ch;
+    margin-bottom: 0;
+    color: var(--ink-soft);
+    font-size: var(--text-xl);
+  }
+
+  .lesson-section {
+    padding-block: var(--space-12);
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 6rem;
+  }
+
+  .lesson-section h2 {
+    max-width: 25ch;
+    font-size: var(--text-2xl);
+    letter-spacing: -0.035em;
+  }
+
+  .component-stack {
+    display: grid;
+    gap: var(--space-8);
+  }
+</style>

@@ -1,0 +1,150 @@
+---
+import BaseLayout from './base-layout.astro';
+
+interface Props {
+  title: string;
+  description?: string | undefined;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="learning-shell site-frame">
+    <details class="learning-shell__curriculum-mobile">
+      <summary>Chương trình học</summary>
+      <nav aria-label="Chương trình học trên thiết bị nhỏ">
+        <ol>
+          <li><a aria-current="page" href="#concept">01 · Khái niệm</a></li>
+          <li><a href="#example">02 · Ví dụ</a></li>
+          <li><a href="#checkpoint">03 · Kiểm tra</a></li>
+        </ol>
+      </nav>
+    </details>
+
+    <aside class="learning-shell__curriculum" aria-label="Chương trình học">
+      <slot name="curriculum">
+        <p class="eyebrow">Curriculum</p>
+        <nav aria-label="Bài học mẫu">
+          <ol>
+            <li><a aria-current="page" href="#concept">01 · Khái niệm</a></li>
+            <li><a href="#example">02 · Ví dụ</a></li>
+            <li><a href="#checkpoint">03 · Kiểm tra</a></li>
+          </ol>
+        </nav>
+      </slot>
+    </aside>
+
+    <article class="learning-shell__reader" data-pagefind-body>
+      <slot />
+    </article>
+
+    <aside class="learning-shell__outline" aria-label="Trong bài này">
+      <slot name="outline">
+        <p class="eyebrow">Trong bài này</p>
+        <nav aria-label="Mục lục bài học">
+          <ol>
+            <li><a href="#concept">Khái niệm</a></li>
+            <li><a href="#example">Ví dụ</a></li>
+            <li><a href="#checkpoint">Checkpoint</a></li>
+          </ol>
+        </nav>
+      </slot>
+    </aside>
+  </div>
+</BaseLayout>
+
+<style>
+  .learning-shell {
+    display: grid;
+    grid-template-columns: minmax(11rem, 0.7fr) minmax(0, var(--reader-width)) minmax(11rem, 0.7fr);
+    gap: clamp(1.5rem, 4vw, 4.5rem);
+    align-items: start;
+    padding-block: var(--space-12);
+  }
+
+  .learning-shell__curriculum-mobile {
+    display: none;
+  }
+
+  .learning-shell__curriculum,
+  .learning-shell__outline {
+    position: sticky;
+    top: 6.5rem;
+    min-width: 0;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-strong);
+  }
+
+  :global(.learning-shell aside ol) {
+    display: grid;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+
+  :global(.learning-shell aside a) {
+    display: block;
+    padding: var(--space-2) 0;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    text-decoration: none;
+  }
+
+  :global(.learning-shell aside a:hover),
+  :global(.learning-shell aside a[aria-current='page']) {
+    color: var(--primary);
+  }
+
+  .learning-shell__reader {
+    min-width: 0;
+  }
+
+  .learning-shell__reader :global(p),
+  .learning-shell__reader :global(li) {
+    color: var(--ink-soft);
+    font-size: var(--text-lg);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 69.99rem) {
+    .learning-shell {
+      grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.32fr);
+    }
+
+    .learning-shell__curriculum {
+      display: none;
+    }
+
+    .learning-shell__curriculum-mobile {
+      display: block;
+      grid-column: 1 / -1;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+    }
+
+    .learning-shell__curriculum-mobile summary {
+      min-height: 2.75rem;
+      display: flex;
+      align-items: center;
+      color: var(--ink);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      font-weight: 700;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .learning-shell {
+      grid-template-columns: minmax(0, 1fr);
+      padding-block: var(--space-8);
+    }
+
+    .learning-shell__outline {
+      position: static;
+      grid-row: 1;
+    }
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  name?: string;
+  hint?: string;
+  placeholder?: string;
+  type?: 'text' | 'search';
+}
+
+const { id, label, name = id, hint, placeholder, type = 'text' } = Astro.props;
+const hintId = hint ? `${id}-hint` : undefined;
+---
+
+<div class="field">
+  <label for={id}>{label}</label>
+  {hint && <p id={hintId}>{hint}</p>}
+  <input id={id} name={name} type={type} placeholder={placeholder} aria-describedby={hintId} />
+</div>
+
+<style>
+  .field {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  label {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--text-sm);
+  }
+
+  input {
+    min-height: 2.75rem;
+    width: 100%;
+    padding-inline: var(--space-4);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  input::placeholder {
+    color: var(--muted);
+  }
+</style>

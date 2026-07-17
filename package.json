@@ -1,0 +1,56 @@
+{
+  "name": "algo-study",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@11.16.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run build:site && npm run build:search",
+    "build:site": "astro build",
+    "build:search": "pagefind --site dist",
+    "preview": "astro preview",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "typecheck": "astro check",
+    "validate:content": "astro sync",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:e2e": "npm run build && playwright test",
+    "test:e2e:only": "playwright test",
+    "test:a11y": "npm run build && playwright test --grep @a11y",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test:unit && npm run build"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "7.0.3",
+    "@astrojs/react": "6.0.1",
+    "@astrojs/sitemap": "3.7.3",
+    "@fontsource-variable/ibm-plex-sans": "5.2.8",
+    "@fontsource-variable/jetbrains-mono": "5.2.8",
+    "astro": "7.1.0",
+    "lucide-react": "1.24.0",
+    "pagefind": "1.5.2",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "@axe-core/playwright": "4.12.1",
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.61.1",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.5",
+    "eslint-plugin-astro": "1.7.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "prettier": "3.9.5",
+    "prettier-plugin-astro": "0.14.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.64.0",
+    "vitest": "4.1.10"
+  }
+}

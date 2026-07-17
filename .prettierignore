@@ -1,0 +1,8 @@
+.claude
+node_modules
+.astro
+dist
+coverage
+playwright-report
+test-results
+package-lock.json

@@ -1,0 +1,48 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = 'Đang tải nội dung' } = Astro.props;
+---
+
+<div class="skeleton" role="status" aria-label={label}>
+  <span class="sr-only">{label}</span>
+  <span></span><span></span><span></span>
+</div>
+
+<style>
+  .skeleton {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .skeleton span:not(.sr-only) {
+    display: block;
+    height: 0.75rem;
+    background: var(--surface-muted);
+  }
+
+  .skeleton span:nth-child(3) {
+    width: 82%;
+  }
+
+  .skeleton span:nth-child(4) {
+    width: 56%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .skeleton span:not(.sr-only) {
+      animation: skeleton-pulse 1.6s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes skeleton-pulse {
+    to {
+      opacity: 0.45;
+    }
+  }
+</style>

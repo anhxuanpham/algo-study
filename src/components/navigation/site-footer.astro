@@ -1,0 +1,66 @@
+---
+import { siteConfig } from '../../config/site';
+
+const year = new Date().getUTCFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner site-frame">
+    <div>
+      <p class="eyebrow">{siteConfig.shortName} / Learning system</p>
+      <p class="site-footer__statement">
+        Học để giải thích được <em>vì sao</em>, không chỉ nhớ lời giải.
+      </p>
+    </div>
+    <div class="site-footer__meta">
+      <p>Vietnamese-first · Static-first · Accessible by default</p>
+      <p>© {year} {siteConfig.name}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-20);
+    border-top: 1px solid var(--border-strong);
+    background: var(--surface);
+  }
+
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+    gap: var(--space-12);
+    padding-block: var(--space-12);
+  }
+
+  .site-footer__statement {
+    max-width: 34ch;
+    margin-bottom: 0;
+    font-size: var(--text-2xl);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .site-footer__statement em {
+    color: var(--action);
+  }
+
+  .site-footer__meta {
+    align-self: end;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .site-footer__meta p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 47.99rem) {
+    .site-footer__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+</style>

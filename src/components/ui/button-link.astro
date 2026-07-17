@@ -1,0 +1,63 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'quiet';
+  external?: boolean;
+}
+
+const { href, variant = 'primary', external = false } = Astro.props;
+---
+
+<a
+  class:list={['button-link', `button-link--${variant}`]}
+  href={href}
+  rel={external ? 'noreferrer' : undefined}
+  target={external ? '_blank' : undefined}
+>
+  <slot />
+  {external && <span class="sr-only"> (mở trong tab mới)</span>}
+</a>
+
+<style>
+  .button-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .button-link--primary {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--surface);
+  }
+
+  .button-link--primary:hover {
+    border-color: var(--primary-strong);
+    background: var(--primary-strong);
+    color: var(--surface);
+  }
+
+  .button-link--secondary {
+    border-color: var(--border-strong);
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  .button-link--secondary:hover,
+  .button-link--quiet:hover {
+    border-color: var(--primary);
+    color: var(--primary-strong);
+  }
+
+  .button-link--quiet {
+    color: var(--ink);
+  }
+</style>

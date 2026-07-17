@@ -1,0 +1,50 @@
+---
+import SiteFooter from '../components/navigation/site-footer.astro';
+import SiteHeader from '../components/navigation/site-header.astro';
+import { siteConfig } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+  image?: string | undefined;
+}
+
+const {
+  title = siteConfig.name,
+  description = siteConfig.description,
+  image = '/social-card.svg',
+} = Astro.props;
+const documentTitle = title === siteConfig.name ? title : `${title} · ${siteConfig.name}`;
+const canonical = new URL(Astro.url.pathname, siteConfig.canonicalUrl);
+const socialImage = new URL(image, siteConfig.canonicalUrl);
+---
+
+<!doctype html>
+<html lang={siteConfig.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)" />
+    <meta property="og:locale" content={siteConfig.locale.replace('-', '_')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{documentTitle}</title>
+    <script is:inline src="/theme-bootstrap.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng</a>
+    <SiteHeader />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

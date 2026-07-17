@@ -1,0 +1,48 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const { id, title, description } = Astro.props;
+const titleId = `${id}-title`;
+---
+
+<section class="empty-state" aria-labelledby={titleId}>
+  <p class="empty-state__index" aria-hidden="true">∅</p>
+  <div>
+    <h2 id={titleId}>{title}</h2>
+    <p>{description}</p>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .empty-state {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-6);
+    align-items: start;
+    padding: var(--space-8);
+    border: 1px dashed var(--border-strong);
+    background: var(--surface);
+  }
+
+  .empty-state__index {
+    margin: 0;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-3xl);
+    line-height: 1;
+  }
+
+  h2 {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-xl);
+  }
+
+  p:last-of-type {
+    color: var(--muted);
+  }
+</style>

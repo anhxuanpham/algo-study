@@ -1,0 +1,48 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  recovery: string;
+}
+
+const { id, title, recovery } = Astro.props;
+const titleId = `${id}-title`;
+---
+
+<section class="error-state" role="alert" aria-labelledby={titleId}>
+  <p class="error-state__code" aria-hidden="true">ERR</p>
+  <div>
+    <h2 id={titleId}>{title}</h2>
+    <p>{recovery}</p>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .error-state {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border: 1px solid var(--danger);
+    border-left-width: 0.35rem;
+    background: var(--danger-soft);
+  }
+
+  .error-state__code {
+    margin: 0;
+    color: var(--danger);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 800;
+  }
+
+  h2 {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-xl);
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+</style>

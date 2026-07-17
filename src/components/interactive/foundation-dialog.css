@@ -1,0 +1,52 @@
+.dialog-trigger,
+.dialog-close {
+  min-height: 2.75rem;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.dialog-trigger:hover,
+.dialog-close:hover {
+  border-color: var(--primary);
+  color: var(--primary-strong);
+}
+
+.foundation-dialog {
+  width: min(calc(100% - 2rem), 34rem);
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: var(--shadow-overlay);
+}
+
+.foundation-dialog::backdrop {
+  background: rgb(7 11 21 / 0.68);
+}
+
+.foundation-dialog__content {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-8);
+}
+
+.foundation-dialog__content h2,
+.foundation-dialog__content p {
+  margin: 0;
+}
+
+.foundation-dialog__content p {
+  color: var(--ink-soft);
+}
+
+.dialog-close {
+  justify-self: end;
+}

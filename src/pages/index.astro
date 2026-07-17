@@ -1,0 +1,262 @@
+---
+import ButtonLink from '../components/ui/button-link.astro';
+import ProgressMeter from '../components/ui/progress-meter.astro';
+import StatusBadge from '../components/ui/status-badge.astro';
+import BaseLayout from '../layouts/base-layout.astro';
+---
+
+<BaseLayout>
+  <section class="hero site-frame" aria-labelledby="hero-title">
+    <div class="hero__index" aria-hidden="true">00</div>
+    <div class="hero__content">
+      <div class="rule-label">
+        <p class="eyebrow">Vietnamese-first algorithm learning</p>
+      </div>
+      <h1 id="hero-title">Đừng học thuộc.<br /><em>Hãy trace nó.</em></h1>
+      <p class="hero__lede">
+        Học thuật toán bằng khái niệm, invariant, worked example, visual trace và luyện tập có chủ
+        đích — từ nền tảng tới technical interview.
+      </p>
+      <div class="hero__actions">
+        <ButtonLink href="/foundation-preview/">Xem foundation preview</ButtonLink>
+        <ButtonLink href="#system" variant="secondary">Khám phá hệ thống</ButtonLink>
+      </div>
+    </div>
+    <aside class="hero__proof" aria-label="Nguyên tắc sản phẩm">
+      <p class="eyebrow">Learning contract</p>
+      <ol>
+        <li><span>01</span> Concept</li>
+        <li><span>02</span> Worked example</li>
+        <li><span>03</span> Visual trace</li>
+        <li><span>04</span> Retrieval</li>
+        <li><span>05</span> Practice</li>
+        <li><span>06</span> Review</li>
+      </ol>
+    </aside>
+  </section>
+
+  <section class="principles site-frame" id="system" aria-labelledby="principles-title">
+    <div class="principles__heading">
+      <p class="eyebrow">Hệ thống học</p>
+      <h2 id="principles-title">Một workspace cho tư duy, không phải một playlist video.</h2>
+    </div>
+    <div class="principles__grid">
+      <article>
+        <p class="article-index">A/01</p>
+        <h3>Reason first</h3>
+        <p>Luôn nêu invariant, constraints và trade-off trước khi mở code.</p>
+      </article>
+      <article>
+        <p class="article-index">A/02</p>
+        <h3>Visual, not passive</h3>
+        <p>Dự đoán bước tiếp theo rồi mới chạy trace. Animation không tự tạo mastery.</p>
+      </article>
+      <article>
+        <p class="article-index">A/03</p>
+        <h3>Progress with evidence</h3>
+        <p>Phân biệt đã đọc, đã retrieval, luyện có gợi ý và giải độc lập.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="status-band" aria-labelledby="status-title">
+    <div class="status-band__inner site-frame">
+      <div>
+        <StatusBadge tone="warning">Foundation phase</StatusBadge>
+        <h2 id="status-title">Đường ray đã sẵn sàng.</h2>
+        <p>Design tokens, zero-JS content baseline, responsive shell và quality gates.</p>
+      </div>
+      <div class="status-band__meter">
+        <ProgressMeter label="Foundation implementation" value={18} />
+        <p class="eyebrow">Preview metric · not learner mastery</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(16rem, 0.34fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: end;
+    min-height: min(47rem, calc(100dvh - 4.75rem));
+    padding-block: clamp(4rem, 11vw, 9rem) var(--space-16);
+  }
+
+  .hero__index {
+    align-self: start;
+    color: var(--border-strong);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    writing-mode: vertical-rl;
+  }
+
+  .hero h1 {
+    max-width: 11ch;
+    margin: var(--space-8) 0 var(--space-6);
+    font-size: var(--text-hero);
+    letter-spacing: -0.075em;
+    line-height: 0.86;
+  }
+
+  .hero h1 em {
+    color: var(--primary);
+    font-style: italic;
+    font-weight: 450;
+  }
+
+  .hero__lede {
+    max-width: 52ch;
+    color: var(--ink-soft);
+    font-size: var(--text-xl);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .hero__proof {
+    padding: var(--space-5) 0;
+    border-block: 1px solid var(--border-strong);
+  }
+
+  .hero__proof ol {
+    display: grid;
+    gap: var(--space-2);
+    padding: 0;
+    margin: var(--space-5) 0 0;
+    list-style: none;
+  }
+
+  .hero__proof li {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: var(--space-3);
+    align-items: baseline;
+    color: var(--ink-soft);
+  }
+
+  .hero__proof li span,
+  .article-index {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .principles {
+    padding-block: var(--space-20);
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .principles__heading {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.3fr) minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .principles__heading h2 {
+    max-width: 21ch;
+    margin: 0;
+    font-size: var(--text-3xl);
+    letter-spacing: -0.045em;
+  }
+
+  .principles__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin-top: var(--space-12);
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .principles article {
+    min-height: 18rem;
+    padding: var(--space-8);
+    background: var(--surface);
+  }
+
+  .principles article:nth-child(2) {
+    transform: translateY(var(--space-6));
+  }
+
+  .principles h3 {
+    margin-top: var(--space-12);
+    font-size: var(--text-2xl);
+  }
+
+  .principles article p:last-child {
+    color: var(--muted);
+  }
+
+  .status-band {
+    padding-block: var(--space-16);
+    background: var(--ink);
+    color: var(--canvas);
+  }
+
+  .status-band__inner {
+    display: grid;
+    grid-template-columns: 1.2fr minmax(16rem, 0.8fr);
+    gap: var(--space-12);
+    align-items: end;
+  }
+
+  .status-band h2 {
+    margin: var(--space-4) 0 var(--space-2);
+    font-size: var(--text-3xl);
+  }
+
+  .status-band p {
+    color: color-mix(in srgb, var(--canvas), transparent 24%);
+  }
+
+  .status-band__meter {
+    padding: var(--space-6);
+    border: 1px solid color-mix(in srgb, var(--canvas), transparent 62%);
+  }
+
+  .status-band__meter .eyebrow {
+    margin: var(--space-4) 0 0;
+  }
+
+  @media (max-width: 63.99rem) {
+    .hero {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .hero__proof {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: auto;
+    }
+
+    .hero__index {
+      display: none;
+    }
+
+    .hero__proof {
+      grid-column: auto;
+    }
+
+    .principles__heading,
+    .principles__grid,
+    .status-band__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .principles article:nth-child(2) {
+      transform: none;
+    }
+  }
+</style>
