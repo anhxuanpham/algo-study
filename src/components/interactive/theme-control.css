@@ -18,8 +18,8 @@
   padding-inline: 0.75rem;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--ink-soft);
+  background: var(--surface-muted);
+  color: var(--ink);
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 650;

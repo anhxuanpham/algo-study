@@ -1,0 +1,44 @@
+---
+import { getEntry, render } from 'astro:content';
+import LearningLayout from '../layouts/learning-layout.astro';
+
+const lesson = await getEntry('lessons', 'arrays-basics-01-two-pointers');
+if (!lesson) {
+  throw new Error('Required preview lesson arrays-basics-01-two-pointers is missing.');
+}
+const { Content } = await render(lesson);
+---
+
+<LearningLayout
+  title="Two pointers content preview"
+  description="Bản render thật của canonical MDX lesson contract."
+>
+  <header class="content-preview__header">
+    <p class="eyebrow">Canonical MDX vertical slice</p>
+    <h1>Mảng và pattern hai con trỏ</h1>
+    <p>
+      Nội dung này được render từ typed Astro content collection và dùng allowlisted learning
+      components.
+    </p>
+  </header>
+  <Content />
+</LearningLayout>
+
+<style>
+  .content-preview__header {
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  h1 {
+    margin-block: var(--space-5);
+    font-size: var(--text-3xl);
+    letter-spacing: -0.05em;
+  }
+
+  .content-preview__header > p:last-child {
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: var(--text-xl);
+  }
+</style>

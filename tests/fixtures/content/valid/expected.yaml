@@ -1,0 +1,19 @@
+collections:
+  tracks: 1
+  topics: 1
+  lessons: 1
+  problems: 2
+  assessments: 1
+  glossary: 1
+canonicalIds:
+  - foundations
+  - arrays-basics
+  - arrays-basics-01-two-pointers
+  - pair-sum-sorted-guided
+  - pair-sum-sorted-independent
+  - arrays-basics-01-retrieval-01
+  - two-pointers
+previewCoverage:
+  partial:
+    - arrays-strings
+    - two-pointers

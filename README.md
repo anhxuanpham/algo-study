@@ -4,7 +4,7 @@ Vietnamese-first algorithm learning platform focused on reasoning, visual traces
 
 ## Status
 
-Phase 1 foundation. The current routes are a design-system and learning-shell preview; curriculum content is not implemented yet.
+Phase 2 content pipeline. The project includes the production foundation plus one reviewed arrays/two-pointers vertical slice that proves typed collections, MDX authoring components, graph/reference validation, and honest coverage reporting. Full curriculum coverage is not implemented yet.
 
 ## Stack
 
@@ -33,18 +33,20 @@ npm run test:e2e
 
 ## Commands
 
-| Command                    | Purpose                                        |
-| -------------------------- | ---------------------------------------------- |
-| `npm run dev`              | Start Astro development server                 |
-| `npm run build`            | Build static site then generate Pagefind index |
-| `npm run preview`          | Preview the production build                   |
-| `npm run format`           | Format source files                            |
-| `npm run lint`             | Run ESLint                                     |
-| `npm run typecheck`        | Run Astro/TypeScript checks                    |
-| `npm run validate:content` | Sync and validate Astro content types          |
-| `npm run test:unit`        | Run unit tests                                 |
-| `npm run test:e2e`         | Build and run browser tests                    |
-| `npm run check`            | Run the non-browser quality gate               |
+| Command                       | Purpose                                         |
+| ----------------------------- | ----------------------------------------------- |
+| `npm run dev`                 | Start Astro development server                  |
+| `npm run build`               | Build static site then generate Pagefind index  |
+| `npm run preview`             | Preview the production build                    |
+| `npm run format`              | Format source files                             |
+| `npm run lint`                | Run ESLint                                      |
+| `npm run typecheck`           | Run Astro/TypeScript checks                     |
+| `npm run validate:content`    | Validate schemas/graph/preview content contract |
+| `npm run validate:content:v1` | Enforce strict mandatory v1.0 coverage          |
+| `npm run coverage:content`    | Generate the Markdown coverage report           |
+| `npm run test:unit`           | Run unit tests                                  |
+| `npm run test:e2e`            | Build and run browser tests                     |
+| `npm run check`               | Run the non-browser quality gate                |
 
 ## Architecture boundaries
 
@@ -72,17 +74,27 @@ Technical editorial + coding workspace. IBM Plex Sans for reading/UI, JetBrains 
 ```text
 src/
   components/
+    content/      # allowlisted static MDX learning blocks
     interactive/  # explicitly hydrated React islands
     navigation/   # static navigation components
     ui/           # static Astro primitives
+  content/        # tracks, topics, lessons, problems, assessments, glossary
+  data/           # curriculum manifest and content identity rules
+  lib/content/    # shared schemas, loaders, queries, validation
+  lib/curriculum/ # prerequisite graph and coverage calculator
   config/
   layouts/
   pages/
   styles/
+scripts/content/  # deterministic validation/report CLIs
 tests/
   unit/
   e2e/
 ```
+
+## Content authoring
+
+Read `docs/content-authoring-guide.md` before adding an entry and use `docs/content-review-checklist.md` before promoting it to `published`. Preview deploys may show `partial/planned`; strict v1.0 coverage is a separate gate.
 
 ## Privacy and data
 

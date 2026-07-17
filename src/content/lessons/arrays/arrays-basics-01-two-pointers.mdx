@@ -1,0 +1,110 @@
+---
+id: arrays-basics-01-two-pointers
+topicId: arrays-basics
+level: foundation
+objectives:
+  - Nêu invariant của hai con trỏ trên mảng tăng dần.
+  - Trace chính xác left, right và quyết định loại bỏ.
+  - Chứng minh time O(n) và space O(1).
+prerequisiteIds: []
+estimatedMinutes: 18
+concepts:
+  - array-memory
+  - traversal
+  - two-pointers
+patternIds:
+  - two-pointers
+assessmentIds:
+  - arrays-basics-01-retrieval-01
+problemIds:
+  - pair-sum-sorted-guided
+  - pair-sum-sorted-independent
+visualizerIds: []
+codeLanguage: typescript
+evidence:
+  workedExample: true
+  accessibleTrace: true
+  retrieval: true
+  guidedPractice: true
+  independentPractice: true
+  summary: true
+sources:
+  - title: USACO Guide — Two Pointers
+    url: https://usaco.guide/silver/two-pointers?lang=cpp
+author: Algo Study
+reviewVersion: 1
+status: review
+---
+
+import LearningObjectives from '../../../components/content/learning-objectives.astro';
+import Invariant from '../../../components/content/invariant.astro';
+import ComplexityTable from '../../../components/content/complexity-table.astro';
+import WorkedExample from '../../../components/content/worked-example.astro';
+import TraceTable from '../../../components/content/trace-table.astro';
+import Hint from '../../../components/content/hint.astro';
+import Checkpoint from '../../../components/content/checkpoint.astro';
+import Sources from '../../../components/content/sources.astro';
+
+<LearningObjectives
+  id="two-pointers-objectives"
+  items={[
+    'Nêu invariant của hai con trỏ trên mảng tăng dần.',
+    'Trace chính xác left, right và quyết định loại bỏ.',
+    'Chứng minh time O(n) và space O(1).',
+  ]}
+/>
+
+## Vì sao pattern này tồn tại?
+
+Khi dữ liệu có thứ tự, một comparison có thể loại không chỉ một cặp mà cả một nhóm cặp. Hai con trỏ biến lập luận đó thành state rõ ràng: `left` là ứng viên nhỏ nhất còn lại, `right` là ứng viên lớn nhất còn lại.
+
+<Invariant title="Miền ứng viên còn lại">
+  Trước mỗi vòng lặp, nếu một cặp chưa bị loại có tổng bằng target tồn tại, thì cả hai index của cặp
+  đó nằm trong đoạn từ <code>left</code> tới <code>right</code>.
+</Invariant>
+
+<ComplexityTable
+  rows={[
+    { label: 'Time', value: 'O(n)', reason: 'Mỗi con trỏ chỉ di chuyển vào trong, tối đa n lần.' },
+    { label: 'Extra space', value: 'O(1)', reason: 'Chỉ lưu hai index và tổng hiện tại.' },
+  ]}
+/>
+
+<WorkedExample title="Tìm tổng 11 trong [1, 2, 4, 7, 9]">
+  Bắt đầu với tổng <code>1 + 9 = 10</code>. Vì 10 nhỏ hơn 11, mọi cặp dùng giá trị nhỏ hơn hoặc bằng
+  1 với endpoint 9 cũng không thể đạt 11. Do đó tăng <code>left</code> giữ invariant đúng.
+</WorkedExample>
+
+<TraceTable
+  caption="Trace hai con trỏ"
+  columns={['left', 'right', 'sum', 'decision']}
+  rows={[
+    ['0 → 1', '4', '10', 'sum < target, loại index 0'],
+    ['1', '4', '11', 'tìm thấy đáp án [1, 4]'],
+  ]}
+/>
+
+<Checkpoint
+  prompt="Nếu sum hiện tại lớn hơn target, endpoint nào có thể bị loại và vì sao?"
+  answer="Giảm right. Với left hiện tại, mọi giá trị lớn hơn hoặc bằng values[right] đều tạo tổng không nhỏ hơn sum hiện tại."
+/>
+
+<Hint label="Khi code bị lặp vô hạn">
+  Kiểm tra rằng mỗi nhánh không-return đều thay đổi chính xác một trong hai con trỏ.
+</Hint>
+
+## Tóm tắt
+
+- Thứ tự dữ liệu cung cấp bằng chứng để loại một endpoint.
+- Invariant giải thích vì sao việc loại đó không bỏ mất đáp án.
+- Hai con trỏ chạy tuyến tính vì mỗi index chỉ đi qua tối đa một lần.
+
+<Sources
+  id="two-pointers-sources"
+  items={[
+    {
+      title: 'USACO Guide — Two Pointers',
+      url: 'https://usaco.guide/silver/two-pointers?lang=cpp',
+    },
+  ]}
+/>

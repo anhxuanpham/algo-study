@@ -1,0 +1,41 @@
+---
+type Source = {
+  title: string;
+  url: string;
+};
+
+interface Props {
+  id: string;
+  items: Source[];
+}
+
+const { id, items } = Astro.props;
+const titleId = `${id}-title`;
+---
+
+<section class="sources" aria-labelledby={titleId}>
+  <h2 id={titleId}>Nguồn tham khảo</h2>
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <a href={item.url} rel="noreferrer" target="_blank">
+            {item.title}
+            <span class="sr-only"> (mở trong tab mới)</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .sources {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+  }
+</style>

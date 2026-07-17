@@ -50,6 +50,14 @@ test('foundation preview has no detectable wcag a/aa violations @a11y', async ({
 test('dark theme has no detectable wcag a/aa violations @a11y', async ({ page }) => {
   await page.goto('/foundation-preview/');
   await page.getByRole('button', { name: 'Giao diện: Tối' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await page.evaluate(async () => {
+    const transitions = document
+      .getAnimations()
+      .filter((animation) => animation instanceof CSSTransition);
+    await Promise.allSettled(transitions.map((transition) => transition.finished));
+  });
+
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
     .analyze();

@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<aside class="invariant" aria-label={`Invariant: ${title}`}>
+  <p class="eyebrow">Invariant</p>
+  <h2>{title}</h2>
+  <div><slot /></div>
+</aside>
+
+<style>
+  .invariant {
+    padding: var(--space-6);
+    border: 1px solid var(--primary);
+    border-left-width: 0.35rem;
+    background: var(--primary-soft);
+  }
+
+  h2 {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-xl);
+  }
+
+  div :global(:last-child) {
+    margin-bottom: 0;
+  }
+</style>

@@ -1,0 +1,18 @@
+id: arrays-basics-01-retrieval-01
+lessonId: arrays-basics-01-two-pointers
+kind: single-choice
+prompt: Khi tổng hiện tại nhỏ hơn target trong mảng tăng dần, vì sao tăng left là bước hợp lệ?
+options:
+  - id: move-left
+    label: Vì mọi cặp dùng giá trị nhỏ hơn hoặc bằng values[left] đều không thể tạo tổng lớn hơn.
+  - id: move-right
+    label: Vì giảm right luôn làm tổng tăng.
+  - id: skip-random
+    label: Vì có thể bỏ ngẫu nhiên một nửa mảng.
+expected:
+  - move-left
+feedbackByMisconception:
+  move-right: Giảm right làm tổng không tăng trong mảng tăng dần; bước này đi ngược mục tiêu.
+  skip-random: Hai con trỏ loại phần tử bằng invariant về thứ tự, không phải bằng lựa chọn ngẫu nhiên.
+reviewable: true
+status: review

@@ -1,0 +1,37 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<details class="hint">
+  <summary>{label}</summary>
+  <div><slot /></div>
+</details>
+
+<style>
+  .hint {
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  summary {
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+    padding-inline: var(--space-4);
+    color: var(--ink);
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  div {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+
+  div :global(:last-child) {
+    margin-bottom: 0;
+  }
+</style>

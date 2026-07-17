@@ -1,0 +1,74 @@
+---
+type Row = {
+  label: string;
+  value: string;
+  reason: string;
+};
+
+interface Props {
+  rows: Row[];
+}
+
+const { rows } = Astro.props;
+---
+
+<div class="complexity-table" role="region" aria-label="Phân tích độ phức tạp" tabindex="0">
+  <table>
+    <caption>Phân tích độ phức tạp</caption>
+    <thead>
+      <tr><th scope="col">Measure</th><th scope="col">Bound</th><th scope="col">Reason</th></tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            <>
+              <th scope="row">{row.label}</th>
+              <td>
+                <code>{row.value}</code>
+              </td>
+              <td>{row.reason}</td>
+            </>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .complexity-table {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+    background: var(--surface);
+  }
+
+  caption {
+    padding-bottom: var(--space-3);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  th,
+  td {
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  thead th {
+    background: var(--surface-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+</style>

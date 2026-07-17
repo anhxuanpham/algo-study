@@ -1,0 +1,41 @@
+---
+id: pair-sum-sorted-guided
+topicIds:
+  - arrays-basics
+patternIds:
+  - two-pointers
+kind: guided
+difficulty: easy
+constraints:
+  - values được sắp xếp tăng dần.
+  - values.length nằm trong [2, 100000].
+  - Mọi phần tử và target nằm trong Number safe integer range.
+hints:
+  - Đặt một con trỏ ở đầu và một con trỏ ở cuối.
+  - Nếu tổng nhỏ hơn target, dùng thứ tự tăng dần để chứng minh vì sao left có thể tăng.
+  - Nếu tổng lớn hơn target, chứng minh tương tự cho việc giảm right.
+solutionRef: pair-sum-sorted-guided-solution
+language: typescript
+source:
+  title: USACO Guide — Two Pointers
+  url: https://usaco.guide/silver/two-pointers?lang=cpp
+author: Algo Study
+reviewVersion: 1
+status: review
+---
+
+# Tìm cặp có tổng bằng target — guided
+
+Cho mảng số nguyên `values` đã sắp xếp tăng dần và số nguyên `target`. Trả về hai index của một cặp có tổng bằng `target`, hoặc `null` nếu không tồn tại.
+
+## Mục tiêu reasoning
+
+Trước khi code, viết invariant cho đoạn `[left, right]`: nếu một đáp án chưa bị loại tồn tại, ít nhất một endpoint của cặp đó vẫn nằm trong đoạn.
+
+<span id="pair-sum-sorted-guided-solution"></span>
+
+## Solution outline
+
+1. Khởi tạo `left = 0`, `right = values.length - 1`.
+2. So sánh `values[left] + values[right]` với target.
+3. Dùng thứ tự tăng dần để loại `left` hoặc `right` bằng lập luận, không bằng đoán.
