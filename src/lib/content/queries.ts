@@ -17,6 +17,10 @@ export async function getLessons() {
   return (await getCollection('lessons')).sort(byId);
 }
 
+export async function getPreviewLessons() {
+  return (await getLessons()).filter((entry) => entry.data.status !== 'planned');
+}
+
 export async function getProblems() {
   return (await getCollection('problems')).sort(byId);
 }

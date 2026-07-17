@@ -70,6 +70,9 @@ export const lessonSchema = z
   .object({
     id: canonicalIdSchema,
     topicId: canonicalIdSchema,
+    titleVi: z.string().min(1),
+    titleEn: z.string().min(1),
+    description: z.string().min(1),
     level: levelSchema,
     objectives: z.array(z.string().min(1)).min(1),
     prerequisiteIds: z.array(canonicalIdSchema).default([]),

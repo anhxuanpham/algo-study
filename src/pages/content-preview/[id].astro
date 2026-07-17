@@ -1,0 +1,110 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import StatusBadge from '../../components/ui/status-badge.astro';
+import LearningLayout, { type LearningNavigationItem } from '../../layouts/learning-layout.astro';
+import { getPreviewLessons, getRequiredTopic } from '../../lib/content/queries';
+
+export async function getStaticPaths() {
+  const lessons = await getPreviewLessons();
+  const curriculumItems = lessons.map((entry) => ({
+    href: `/content-preview/${entry.id}/`,
+    label: entry.data.titleVi,
+    id: entry.id,
+  }));
+
+  return lessons.map((lesson) => ({
+    params: { id: lesson.id },
+    props: {
+      lesson,
+      curriculumItems: curriculumItems.map((item) => ({
+        href: item.href,
+        label: item.label,
+        current: item.id === lesson.id,
+      })),
+    },
+  }));
+}
+
+interface Props {
+  lesson: CollectionEntry<'lessons'>;
+  curriculumItems: LearningNavigationItem[];
+}
+
+const { lesson, curriculumItems } = Astro.props as Props;
+const topic = await getRequiredTopic(lesson.data.topicId);
+const statusTone = {
+  planned: 'neutral',
+  draft: 'neutral',
+  review: 'warning',
+  published: 'ready',
+} as const;
+const { Content } = await render(lesson);
+---
+
+<LearningLayout
+  title={lesson.data.titleVi}
+  description={lesson.data.description}
+  robots="noindex,nofollow"
+  searchable={false}
+  curriculumLabel="Lesson reviewer previews"
+  curriculumItems={curriculumItems}
+  outlineItems={[]}
+>
+  <header class="lesson-header">
+    <div class="lesson-header__meta">
+      <StatusBadge tone={statusTone[lesson.data.status]}>{lesson.data.status}</StatusBadge>
+      <p class="eyebrow">
+        {topic.data.titleVi} · {lesson.data.estimatedMinutes} phút · {lesson.data.codeLanguage}
+      </p>
+    </div>
+    <h1>{lesson.data.titleVi}</h1>
+    <p class="lesson-header__title-en">{lesson.data.titleEn}</p>
+    <p class="lesson-header__description">{lesson.data.description}</p>
+    <p class="lesson-header__id">
+      Canonical ID: <code>{lesson.id}</code>
+    </p>
+  </header>
+  <Content />
+</LearningLayout>
+
+<style>
+  .lesson-header {
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .lesson-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .lesson-header__meta .eyebrow {
+    margin: 0;
+  }
+
+  h1 {
+    margin: var(--space-8) 0 var(--space-2);
+    font-size: var(--text-3xl);
+    letter-spacing: -0.055em;
+  }
+
+  .lesson-header__title-en,
+  .lesson-header__id {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  .lesson-header__description {
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: var(--text-xl);
+  }
+
+  .lesson-header__id {
+    margin-bottom: 0;
+  }
+</style>

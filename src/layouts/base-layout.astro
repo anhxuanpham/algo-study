@@ -8,12 +8,14 @@ interface Props {
   title?: string | undefined;
   description?: string | undefined;
   image?: string | undefined;
+  robots?: string | undefined;
 }
 
 const {
   title = siteConfig.name,
   description = siteConfig.description,
   image = '/social-card.svg',
+  robots,
 } = Astro.props;
 const documentTitle = title === siteConfig.name ? title : `${title} · ${siteConfig.name}`;
 const canonical = new URL(Astro.url.pathname, siteConfig.canonicalUrl);
@@ -26,6 +28,7 @@ const socialImage = new URL(image, siteConfig.canonicalUrl);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
     <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)" />
     <meta property="og:locale" content={siteConfig.locale.replace('-', '_')} />

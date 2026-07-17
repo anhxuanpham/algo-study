@@ -33,20 +33,21 @@ npm run test:e2e
 
 ## Commands
 
-| Command                       | Purpose                                         |
-| ----------------------------- | ----------------------------------------------- |
-| `npm run dev`                 | Start Astro development server                  |
-| `npm run build`               | Build static site then generate Pagefind index  |
-| `npm run preview`             | Preview the production build                    |
-| `npm run format`              | Format source files                             |
-| `npm run lint`                | Run ESLint                                      |
-| `npm run typecheck`           | Run Astro/TypeScript checks                     |
-| `npm run validate:content`    | Validate schemas/graph/preview content contract |
-| `npm run validate:content:v1` | Enforce strict mandatory v1.0 coverage          |
-| `npm run coverage:content`    | Generate the Markdown coverage report           |
-| `npm run test:unit`           | Run unit tests                                  |
-| `npm run test:e2e`            | Build and run browser tests                     |
-| `npm run check`               | Run the non-browser quality gate                |
+| Command                          | Purpose                                         |
+| -------------------------------- | ----------------------------------------------- |
+| `npm run dev`                    | Start Astro development server                  |
+| `npm run build`                  | Build static site then generate Pagefind index  |
+| `npm run preview`                | Preview the production build                    |
+| `npm run format`                 | Format source files                             |
+| `npm run lint`                   | Run ESLint                                      |
+| `npm run typecheck`              | Run Astro/TypeScript checks                     |
+| `npm run validate:content`       | Validate schemas/graph/preview content contract |
+| `npm run validate:content:v1`    | Enforce strict mandatory v1.0 coverage          |
+| `npm run coverage:content`       | Generate the formatted Markdown coverage report |
+| `npm run coverage:content:check` | Fail when the committed report is stale         |
+| `npm run test:unit`              | Run unit tests                                  |
+| `npm run test:e2e`               | Build and run browser tests                     |
+| `npm run check`                  | Run the non-browser quality gate                |
 
 ## Architecture boundaries
 
@@ -94,7 +95,7 @@ tests/
 
 ## Content authoring
 
-Read `docs/content-authoring-guide.md` before adding an entry and use `docs/content-review-checklist.md` before promoting it to `published`. Preview deploys may show `partial/planned`; strict v1.0 coverage is a separate gate.
+Read `docs/content-authoring-guide.md` before adding an entry and use `docs/content-review-checklist.md` before promoting it to `published`. Draft/review entries are available only through noindex reviewer routes under `/content-preview/`; production lesson routes remain reserved for future `published` content. Preview deploys may show `partial/planned`; strict v1.0 coverage is a separate gate.
 
 ## Privacy and data
 

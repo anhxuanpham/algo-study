@@ -1,32 +1,77 @@
 ---
-import { getEntry, render } from 'astro:content';
-import LearningLayout from '../layouts/learning-layout.astro';
+import StatusBadge from '../components/ui/status-badge.astro';
+import BaseLayout from '../layouts/base-layout.astro';
+import { getPreviewLessons, getTopics } from '../lib/content/queries';
 
-const lesson = await getEntry('lessons', 'arrays-basics-01-two-pointers');
-if (!lesson) {
-  throw new Error('Required preview lesson arrays-basics-01-two-pointers is missing.');
-}
-const { Content } = await render(lesson);
+const lessons = await getPreviewLessons();
+const topics = new Map((await getTopics()).map((entry) => [entry.id, entry]));
+const statusTone = {
+  planned: 'neutral',
+  draft: 'neutral',
+  review: 'warning',
+  published: 'ready',
+} as const;
 ---
 
-<LearningLayout
-  title="Two pointers content preview"
-  description="Bản render thật của canonical MDX lesson contract."
+<BaseLayout
+  title="Content reviewer preview"
+  description="Danh sách nội dung đang được soạn thảo và review nội bộ."
+  robots="noindex,nofollow"
 >
-  <header class="content-preview__header">
-    <p class="eyebrow">Canonical MDX vertical slice</p>
-    <h1>Mảng và pattern hai con trỏ</h1>
-    <p>
-      Nội dung này được render từ typed Astro content collection và dùng allowlisted learning
-      components.
-    </p>
-  </header>
-  <Content />
-</LearningLayout>
+  <section class="preview-index site-frame" data-pagefind-ignore>
+    <header class="preview-index__header">
+      <p class="eyebrow">Internal reviewer preview</p>
+      <h1>Nội dung đang được review</h1>
+      <p>
+        Các route này dùng content collection thật nhưng không phải learner-facing publication. Chỉ
+        nội dung <code>published</code> mới đủ điều kiện cho production routes sau này.
+      </p>
+    </header>
+
+    {
+      lessons.length > 0 ? (
+        <ol class="preview-list">
+          {lessons.map((lesson) => {
+            const topic = topics.get(lesson.data.topicId);
+            return (
+              <li>
+                <article>
+                  <div class="preview-list__meta">
+                    <StatusBadge tone={statusTone[lesson.data.status]}>
+                      {lesson.data.status}
+                    </StatusBadge>
+                    <span>{topic?.data.titleVi ?? lesson.data.topicId}</span>
+                    <span>{lesson.data.estimatedMinutes} phút</span>
+                  </div>
+                  <h2>
+                    <a href={`/content-preview/${lesson.id}/`}>{lesson.data.titleVi}</a>
+                  </h2>
+                  <p class="preview-list__title-en">{lesson.data.titleEn}</p>
+                  <p>{lesson.data.description}</p>
+                  <p class="preview-list__id">
+                    Canonical ID: <code>{lesson.id}</code>
+                  </p>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
+      ) : (
+        <p>Không có lesson draft, review hoặc published để preview.</p>
+      )
+    }
+  </section>
+</BaseLayout>
 
 <style>
-  .content-preview__header {
-    padding-bottom: var(--space-8);
+  .preview-index {
+    max-width: 72rem;
+    padding-block: var(--space-16);
+  }
+
+  .preview-index__header {
+    max-width: 66ch;
+    padding-bottom: var(--space-10);
     border-bottom: 1px solid var(--border-strong);
   }
 
@@ -36,9 +81,54 @@ const { Content } = await render(lesson);
     letter-spacing: -0.05em;
   }
 
-  .content-preview__header > p:last-child {
-    max-width: 58ch;
+  .preview-index__header > p:last-child {
     color: var(--ink-soft);
     font-size: var(--text-xl);
+  }
+
+  .preview-list {
+    display: grid;
+    gap: var(--space-6);
+    padding: 0;
+    margin-block: var(--space-10) 0;
+    list-style: none;
+  }
+
+  .preview-list article {
+    padding: var(--space-8);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .preview-list__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  h2 {
+    margin: var(--space-5) 0 var(--space-2);
+    font-size: var(--text-2xl);
+  }
+
+  h2 a {
+    color: var(--ink);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.16em;
+  }
+
+  .preview-list__title-en,
+  .preview-list__id {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  .preview-list__id {
+    margin-bottom: 0;
   }
 </style>

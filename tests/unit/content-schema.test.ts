@@ -24,34 +24,15 @@ describe('content schemas and valid vertical slice', () => {
     );
   });
 
+  it.each(['titleVi', 'titleEn', 'description'])('requires lesson display field %s', (field) => {
+    const lesson = validLesson();
+    delete lesson[field];
+
+    expect(lessonSchema.safeParse(lesson).success).toBe(false);
+  });
+
   it('requires canonical lesson evidence and TypeScript language', () => {
-    const result = lessonSchema.safeParse({
-      id: 'lesson-one',
-      topicId: 'topic-one',
-      level: 'foundation',
-      objectives: ['Explain the invariant'],
-      prerequisiteIds: [],
-      estimatedMinutes: 10,
-      concepts: ['invariant'],
-      patternIds: [],
-      assessmentIds: ['assessment-one'],
-      problemIds: ['guided-one', 'independent-one'],
-      visualizerIds: [],
-      codeLanguage: 'python',
-      evidence: {
-        workedExample: true,
-        accessibleTrace: true,
-        retrieval: true,
-        guidedPractice: true,
-        independentPractice: true,
-        summary: true,
-      },
-      sources: [{ title: 'Source', url: 'https://example.com' }],
-      author: 'Algo Study',
-      reviewVersion: 1,
-      status: 'draft',
-    });
-    expect(result.success).toBe(false);
+    expect(lessonSchema.safeParse(validLesson({ codeLanguage: 'python' })).success).toBe(false);
   });
 
   it('loads the repository vertical slice and passes preview validation', async () => {
@@ -97,3 +78,36 @@ describe('content schemas and valid vertical slice', () => {
     );
   });
 });
+
+function validLesson(overrides: Record<string, unknown> = {}): Record<string, unknown> {
+  return {
+    id: 'lesson-one',
+    topicId: 'topic-one',
+    titleVi: 'Bài học một',
+    titleEn: 'Lesson One',
+    description: 'Explain the lesson contract.',
+    level: 'foundation',
+    objectives: ['Explain the invariant'],
+    prerequisiteIds: [],
+    estimatedMinutes: 10,
+    concepts: ['invariant'],
+    patternIds: [],
+    assessmentIds: ['assessment-one'],
+    problemIds: ['guided-one', 'independent-one'],
+    visualizerIds: [],
+    codeLanguage: 'typescript',
+    evidence: {
+      workedExample: true,
+      accessibleTrace: true,
+      retrieval: true,
+      guidedPractice: true,
+      independentPractice: true,
+      summary: true,
+    },
+    sources: [{ title: 'Source', url: 'https://example.com' }],
+    author: 'Algo Study',
+    reviewVersion: 1,
+    status: 'draft',
+    ...overrides,
+  };
+}

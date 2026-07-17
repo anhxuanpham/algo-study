@@ -1,56 +1,111 @@
 ---
 import BaseLayout from './base-layout.astro';
 
+export type LearningNavigationItem = {
+  href: string;
+  label: string;
+  current?: boolean;
+};
+
 interface Props {
   title: string;
   description?: string | undefined;
+  robots?: string | undefined;
+  searchable?: boolean | undefined;
+  curriculumLabel?: string | undefined;
+  curriculumItems?: LearningNavigationItem[] | undefined;
+  outlineItems?: LearningNavigationItem[] | undefined;
 }
 
-const { title, description } = Astro.props;
+const defaultCurriculumItems: LearningNavigationItem[] = [
+  { href: '#concept', label: '01 · Khái niệm', current: true },
+  { href: '#example', label: '02 · Ví dụ' },
+  { href: '#checkpoint', label: '03 · Kiểm tra' },
+];
+const defaultOutlineItems: LearningNavigationItem[] = [
+  { href: '#concept', label: 'Khái niệm' },
+  { href: '#example', label: 'Ví dụ' },
+  { href: '#checkpoint', label: 'Checkpoint' },
+];
+const {
+  title,
+  description,
+  robots,
+  searchable = true,
+  curriculumLabel = 'Bài học mẫu',
+  curriculumItems = defaultCurriculumItems,
+  outlineItems = defaultOutlineItems,
+} = Astro.props;
+const hasCurriculum = curriculumItems.length > 0;
+const hasOutline = outlineItems.length > 0;
 ---
 
-<BaseLayout title={title} description={description}>
-  <div class="learning-shell site-frame">
-    <details class="learning-shell__curriculum-mobile">
-      <summary>Chương trình học</summary>
-      <nav aria-label="Chương trình học trên thiết bị nhỏ">
-        <ol>
-          <li><a aria-current="page" href="#concept">01 · Khái niệm</a></li>
-          <li><a href="#example">02 · Ví dụ</a></li>
-          <li><a href="#checkpoint">03 · Kiểm tra</a></li>
-        </ol>
-      </nav>
-    </details>
+<BaseLayout title={title} description={description} robots={robots}>
+  <div class:list={['learning-shell', 'site-frame', { 'learning-shell--no-outline': !hasOutline }]}>
+    {
+      hasCurriculum && (
+        <details class="learning-shell__curriculum-mobile">
+          <summary>Chương trình học</summary>
+          <nav aria-label="Chương trình học trên thiết bị nhỏ">
+            <ol>
+              {curriculumItems.map((item) => (
+                <li>
+                  <a aria-current={item.current ? 'page' : undefined} href={item.href}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </details>
+      )
+    }
 
-    <aside class="learning-shell__curriculum" aria-label="Chương trình học">
-      <slot name="curriculum">
-        <p class="eyebrow">Curriculum</p>
-        <nav aria-label="Bài học mẫu">
-          <ol>
-            <li><a aria-current="page" href="#concept">01 · Khái niệm</a></li>
-            <li><a href="#example">02 · Ví dụ</a></li>
-            <li><a href="#checkpoint">03 · Kiểm tra</a></li>
-          </ol>
-        </nav>
-      </slot>
-    </aside>
+    {
+      hasCurriculum && (
+        <aside class="learning-shell__curriculum" aria-label="Chương trình học">
+          <p class="eyebrow">Curriculum</p>
+          <nav aria-label={curriculumLabel}>
+            <ol>
+              {curriculumItems.map((item) => (
+                <li>
+                  <a aria-current={item.current ? 'page' : undefined} href={item.href}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      )
+    }
 
-    <article class="learning-shell__reader" data-pagefind-body>
+    <article
+      class="learning-shell__reader"
+      data-pagefind-body={searchable ? true : undefined}
+      data-pagefind-ignore={searchable ? undefined : true}
+    >
       <slot />
     </article>
 
-    <aside class="learning-shell__outline" aria-label="Trong bài này">
-      <slot name="outline">
-        <p class="eyebrow">Trong bài này</p>
-        <nav aria-label="Mục lục bài học">
-          <ol>
-            <li><a href="#concept">Khái niệm</a></li>
-            <li><a href="#example">Ví dụ</a></li>
-            <li><a href="#checkpoint">Checkpoint</a></li>
-          </ol>
-        </nav>
-      </slot>
-    </aside>
+    {
+      hasOutline && (
+        <aside class="learning-shell__outline" aria-label="Trong bài này">
+          <p class="eyebrow">Trong bài này</p>
+          <nav aria-label="Mục lục bài học">
+            <ol>
+              {outlineItems.map((item) => (
+                <li>
+                  <a aria-current={item.current ? 'location' : undefined} href={item.href}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      )
+    }
   </div>
 </BaseLayout>
 
@@ -61,6 +116,11 @@ const { title, description } = Astro.props;
     gap: clamp(1.5rem, 4vw, 4.5rem);
     align-items: start;
     padding-block: var(--space-12);
+  }
+
+  .learning-shell--no-outline {
+    grid-template-columns: minmax(11rem, 0.7fr) minmax(0, var(--reader-width));
+    justify-content: center;
   }
 
   .learning-shell__curriculum-mobile {
@@ -92,7 +152,7 @@ const { title, description } = Astro.props;
   }
 
   :global(.learning-shell aside a:hover),
-  :global(.learning-shell aside a[aria-current='page']) {
+  :global(.learning-shell aside a[aria-current]) {
     color: var(--primary);
   }
 
@@ -108,8 +168,15 @@ const { title, description } = Astro.props;
   }
 
   @media (max-width: 69.99rem) {
-    .learning-shell {
+    .learning-shell,
+    .learning-shell--no-outline {
       grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.32fr);
+      justify-content: normal;
+    }
+
+    .learning-shell--no-outline {
+      grid-template-columns: minmax(0, var(--reader-width));
+      justify-content: center;
     }
 
     .learning-shell__curriculum {
@@ -137,7 +204,8 @@ const { title, description } = Astro.props;
   }
 
   @media (max-width: 47.99rem) {
-    .learning-shell {
+    .learning-shell,
+    .learning-shell--no-outline {
       grid-template-columns: minmax(0, 1fr);
       padding-block: var(--space-8);
     }

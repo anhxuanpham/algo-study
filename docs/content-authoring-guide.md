@@ -50,6 +50,8 @@ planned → draft → review → published
 - `review`: complete enough for editorial, technical, and accessibility review.
 - `published`: requires reviewer names, date, valid sources, and complete evidence.
 
+Reviewer previews under `/content-preview/` render `draft`, `review`, and `published` lessons by canonical ID. These internal routes use `noindex,nofollow` and are excluded from the sitemap and Pagefind; they are not production publication. `planned` lessons do not receive preview routes.
+
 Do not mark content `published` to improve a metric. Preview coverage may remain partial. v1.0 fails until every mandatory item is covered.
 
 ## Canonical lesson order
@@ -92,9 +94,12 @@ TypeScript is the canonical v1 language. A correctness claim must include constr
 ```bash
 npm run validate:content        # preview gate; labeled gaps allowed
 npm run validate:content:v1     # strict v1.0; mandatory gaps fail
-npm run coverage:content        # regenerate docs/content-coverage.md
+npm run coverage:content        # regenerate formatted docs/content-coverage.md
+npm run coverage:content:check  # fail when the committed report is stale
 npm run test:unit
 npm run build
 ```
+
+Run `npm run coverage:content` after changing content or the curriculum manifest, then commit the updated report. CI uses `npm run coverage:content:check` without writing files.
 
 Validation errors include code, source path, entry ID, failure, and recovery hint. Never weaken validation to publish broken content.
