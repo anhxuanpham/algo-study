@@ -20,12 +20,13 @@
     "validate:content": "astro sync && tsx scripts/content/validate-content.ts --tier preview",
     "validate:content:v1": "astro sync && tsx scripts/content/validate-content.ts --tier v1.0",
     "coverage:content": "tsx scripts/content/generate-coverage-report.ts --tier preview",
+    "coverage:content:check": "tsx scripts/content/generate-coverage-report.ts --tier preview --check",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:e2e": "npm run build && playwright test",
     "test:e2e:only": "playwright test",
     "test:a11y": "npm run build && playwright test --grep @a11y",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test:unit && npm run build"
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run coverage:content:check && npm run test:unit && npm run build"
   },
   "dependencies": {
     "@astrojs/mdx": "7.0.3",

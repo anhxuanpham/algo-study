@@ -57,6 +57,7 @@ Every entry promoted from `review` to `published` needs editorial and technical 
 
 ```bash
 npm run validate:content
+npm run coverage:content:check
 npm run test:unit
 npm run build
 ```
