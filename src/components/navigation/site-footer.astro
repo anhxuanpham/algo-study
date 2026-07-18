@@ -38,15 +38,23 @@ const year = new Date().getUTCFullYear();
     margin-bottom: 0;
     font-family: var(--font-display);
     font-size: var(--text-2xl);
-    font-weight: 700;
+    font-weight: 650;
+    font-variation-settings:
+      'SOFT' 45,
+      'WONK' 0.45,
+      'opsz' 72;
     letter-spacing: var(--tracking-heading);
     line-height: var(--leading-heading);
   }
 
   .site-footer__statement em {
     color: var(--action);
-    font-style: normal;
-    font-weight: 600;
+    font-style: italic;
+    font-weight: 550;
+    font-variation-settings:
+      'SOFT' 65,
+      'WONK' 0.7,
+      'opsz' 72;
   }
 
   .site-footer__meta {

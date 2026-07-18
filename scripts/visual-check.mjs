@@ -16,7 +16,7 @@ const homeTypography = await page.evaluate(async () => {
   const headingStyle = getComputedStyle(heading);
   const bodyStyle = getComputedStyle(body);
   const displayFaces = await document.fonts.load(
-    `${headingStyle.fontWeight} ${headingStyle.fontSize} "Be Vietnam Pro"`,
+    `${headingStyle.fontWeight} ${headingStyle.fontSize} "Fraunces Variable"`,
     heading.textContent ?? '',
   );
   const bodyFaces = await document.fonts.load(

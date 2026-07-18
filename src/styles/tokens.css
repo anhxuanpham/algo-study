@@ -1,8 +1,8 @@
 :root {
   color-scheme: light dark;
 
-  /* Single Vietnamese-native family for display/body/UI keeps diacritics consistent. */
-  --font-display: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+  /* Soft editorial display + Vietnamese-native reading/UI + technical mono. */
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
   --font-ui: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
@@ -51,17 +51,19 @@
   --text-base: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
-  --text-2xl: clamp(1.5rem, 2.6vw, 1.875rem);
-  --text-3xl: clamp(1.875rem, 4vw, 2.75rem);
-  --text-hero: clamp(2.5rem, 7.5vw, 4.75rem);
+  --text-2xl: clamp(1.55rem, 2.8vw, 2.05rem);
+  --text-3xl: clamp(2rem, 4.4vw, 3.15rem);
+  --text-hero: clamp(2.85rem, 8.2vw, 5.75rem);
 
-  /* Looser metrics so Vietnamese marks (ă ơ ư ệ …) do not collide. */
-  --leading-display: 1.12;
-  --leading-heading: 1.22;
+  /* Serif display needs room for Vietnamese diacritics + soft terminals. */
+  --leading-display: 1.08;
+  --leading-heading: 1.18;
   --leading-body: 1.72;
-  --tracking-display: -0.015em;
-  --tracking-heading: -0.01em;
+  --tracking-display: -0.02em;
+  --tracking-heading: -0.012em;
   --tracking-body: 0;
+  --display-soft: 40;
+  --display-wonk: 0.4;
 
   --radius-sm: 0.375rem;
   --radius-md: 0.625rem;
