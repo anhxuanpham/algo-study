@@ -1,0 +1,11 @@
+id: foundations
+titleVi: Nền tảng thuật toán
+titleEn: Algorithm Foundations
+audience: Người học đã biết cú pháp TypeScript và muốn xây nền tảng giải bài có hệ thống.
+outcomes:
+  - Phân tích constraints và độ phức tạp trước khi chọn thuật toán.
+  - Nêu invariant và trace được state của thuật toán cốt lõi.
+  - Giải bài nền tảng bằng pattern phù hợp và kiểm tra edge cases.
+topicIds:
+  - arrays-basics
+status: review

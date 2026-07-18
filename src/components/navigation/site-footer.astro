@@ -36,20 +36,23 @@ const year = new Date().getUTCFullYear();
   .site-footer__statement {
     max-width: 34ch;
     margin-bottom: 0;
+    font-family: var(--font-display);
     font-size: var(--text-2xl);
     font-weight: 650;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
+    letter-spacing: var(--tracking-heading);
+    line-height: 1.12;
   }
 
   .site-footer__statement em {
     color: var(--action);
+    font-style: normal;
+    font-weight: 430;
   }
 
   .site-footer__meta {
     align-self: end;
     color: var(--muted);
-    font-family: var(--font-mono);
+    font-family: var(--font-ui);
     font-size: var(--text-xs);
   }
 

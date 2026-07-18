@@ -7,7 +7,7 @@
   background: var(--surface);
   color: var(--ink);
   cursor: pointer;
-  font-family: var(--font-mono);
+  font-family: var(--font-ui);
   font-size: var(--text-sm);
   font-weight: 700;
 }

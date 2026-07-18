@@ -1,0 +1,87 @@
+schemaVersion: 1
+defaultTier: preview
+domains:
+  - id: foundations
+    titleVi: Nền tảng và độ phức tạp
+    mandatory: true
+    requiredConcepts: [invariant, big-o, constraints, memory-model, recursion-model]
+    blockedBy: []
+  - id: arrays-strings
+    titleVi: Mảng và chuỗi
+    mandatory: true
+    requiredConcepts:
+      [array-memory, traversal, two-pointers, sliding-window, prefix-sums, intervals]
+    blockedBy: []
+  - id: linked-structures
+    titleVi: Cấu trúc liên kết
+    mandatory: true
+    requiredConcepts: [linked-list, fast-slow-pointers, linked-list-reversal]
+    blockedBy: [arrays-strings]
+  - id: linear-containers
+    titleVi: Stack, queue và deque
+    mandatory: true
+    requiredConcepts: [stack, queue, deque, monotonic-stack, monotonic-queue]
+    blockedBy: [arrays-strings]
+  - id: hashing
+    titleVi: Hashing
+    mandatory: true
+    requiredConcepts: [hash-set, hash-map, frequency-map, collision-model]
+    blockedBy: [arrays-strings]
+  - id: search-sort
+    titleVi: Tìm kiếm và sắp xếp
+    mandatory: true
+    requiredConcepts: [basic-sorts, merge-sort, quick-sort, binary-search, binary-search-answer]
+    blockedBy: [arrays-strings]
+  - id: recursion-backtracking
+    titleVi: Đệ quy và quay lui
+    mandatory: true
+    requiredConcepts: [call-stack, recursion, backtracking, pruning]
+    blockedBy: [foundations]
+  - id: trees
+    titleVi: Cây, heap và trie
+    mandatory: true
+    requiredConcepts: [binary-tree, bst, heap, trie, tree-traversal]
+    blockedBy: [recursion-backtracking]
+  - id: graphs
+    titleVi: Đồ thị
+    mandatory: true
+    requiredConcepts:
+      [graph-representation, bfs, dfs, components, topological-sort, union-find, shortest-path]
+    blockedBy: [linear-containers]
+  - id: greedy
+    titleVi: Tham lam
+    mandatory: true
+    requiredConcepts: [greedy-choice, exchange-argument, interval-greedy]
+    blockedBy: [search-sort]
+  - id: dynamic-programming
+    titleVi: Quy hoạch động
+    mandatory: true
+    requiredConcepts: [state-design, transition, base-case, memoization, tabulation, dp-1d, dp-2d]
+    blockedBy: [recursion-backtracking]
+  - id: bits-math
+    titleVi: Bit và toán cơ bản
+    mandatory: true
+    requiredConcepts: [bit-operations, gcd, sieve, modular-arithmetic]
+    blockedBy: [foundations]
+patterns:
+  - { id: two-pointers, titleVi: Hai con trỏ, mandatory: true }
+  - { id: fast-slow-pointers, titleVi: Con trỏ nhanh chậm, mandatory: true }
+  - { id: sliding-window, titleVi: Cửa sổ trượt, mandatory: true }
+  - { id: prefix-sums, titleVi: Tổng tiền tố, mandatory: true }
+  - { id: frequency-map, titleVi: Bảng tần suất, mandatory: true }
+  - { id: intervals, titleVi: Khoảng, mandatory: true }
+  - { id: binary-search, titleVi: Tìm kiếm nhị phân, mandatory: true }
+  - { id: binary-search-answer, titleVi: Tìm đáp án nhị phân, mandatory: true }
+  - { id: monotonic-stack, titleVi: Stack đơn điệu, mandatory: true }
+  - { id: monotonic-queue, titleVi: Queue đơn điệu, mandatory: true }
+  - { id: backtracking, titleVi: Quay lui, mandatory: true }
+  - { id: tree-traversal, titleVi: Duyệt cây, mandatory: true }
+  - { id: heap-top-k, titleVi: Heap và top-k, mandatory: true }
+  - { id: trie-prefix, titleVi: Trie và tiền tố, mandatory: true }
+  - { id: graph-traversal, titleVi: Duyệt đồ thị, mandatory: true }
+  - { id: topological-sort, titleVi: Sắp xếp topo, mandatory: true }
+  - { id: union-find, titleVi: Disjoint set union, mandatory: true }
+  - { id: shortest-path, titleVi: Đường đi ngắn nhất, mandatory: true }
+  - { id: greedy, titleVi: Lập luận tham lam, mandatory: true }
+  - { id: dynamic-programming, titleVi: Quy hoạch động, mandatory: true }
+  - { id: bit-manipulation, titleVi: Thao tác bit, mandatory: true }

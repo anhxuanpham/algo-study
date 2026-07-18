@@ -6,8 +6,9 @@ Technical editorial learning workspace. Hierarchy comes from typography, rule li
 
 ## Visual system
 
-- IBM Plex Sans Variable: UI and long-form reading.
-- JetBrains Mono Variable: code, indices, metadata, labels.
+- Bricolage Grotesque Variable (`--font-display`): brand statement and headings.
+- Be Vietnam Pro (`--font-body` / `--font-ui`): long-form reading and UI controls.
+- Chivo Mono Variable (`--font-mono`): code, indices, metadata, labels, and eyebrows only.
 - Semantic tokens only: `canvas`, `surface`, `ink`, `muted`, `border`, `primary`, `action`, and status colors.
 - Light, dark, and system themes are designed together.
 - 8–12px radii; overlays alone receive substantial shadow.

@@ -1,0 +1,33 @@
+- name: duplicate global ID
+  mutation: duplicate-global-id
+  expectedCode: DUPLICATE_GLOBAL_ID
+- name: dangling lesson reference
+  mutation: dangling-reference
+  expectedCode: DANGLING_REFERENCE
+- name: prerequisite cycle with complete path
+  mutation: prerequisite-cycle
+  expectedCode: PREREQUISITE_CYCLE
+- name: orphan assessment
+  mutation: orphan-assessment
+  expectedCode: ORPHAN_ASSESSMENT
+- name: filename and canonical ID mismatch
+  mutation: canonical-id-mismatch
+  expectedCode: CANONICAL_ID_MISMATCH
+- name: published lesson without reviewers
+  mutation: published-review-missing
+  expectedCode: PUBLISHED_REVIEW_MISSING
+- name: missing independent practice coverage
+  mutation: coverage-gap
+  expectedCode: COVERAGE_GAP
+- name: redirect shadows a live ID
+  mutation: alias-shadows-live-id
+  expectedCode: ALIAS_SHADOWS_LIVE_ID
+- name: topic uses an undeclared domain
+  mutation: unknown-domain
+  expectedCode: UNKNOWN_DOMAIN
+- name: lesson uses an undeclared pattern
+  mutation: unknown-pattern
+  expectedCode: UNKNOWN_PATTERN
+- name: assessment owner omits back-reference
+  mutation: owner-back-reference
+  expectedCode: OWNER_BACK_REFERENCE_MISSING

@@ -1,0 +1,44 @@
+---
+interface Props {
+  prompt: string;
+  answer: string;
+}
+
+const { prompt, answer } = Astro.props;
+---
+
+<section class="checkpoint" aria-label="Retrieval checkpoint">
+  <p class="eyebrow">Retrieval checkpoint</p>
+  <p class="checkpoint__prompt">{prompt}</p>
+  <details>
+    <summary>Đối chiếu reasoning</summary>
+    <p>{answer}</p>
+  </details>
+</section>
+
+<style>
+  .checkpoint {
+    padding: var(--space-6);
+    border: 1px solid var(--action);
+    background: var(--action-soft);
+  }
+
+  .checkpoint__prompt {
+    color: var(--ink);
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  summary {
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+    color: var(--ink);
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  details p {
+    margin-bottom: 0;
+  }
+</style>

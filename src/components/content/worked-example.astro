@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="worked-example" aria-label={`Worked example: ${title}`}>
+  <p class="eyebrow">Worked example</p>
+  <h2>{title}</h2>
+  <div><slot /></div>
+</section>
+
+<style>
+  .worked-example {
+    padding: var(--space-6);
+    border-block: 1px solid var(--border-strong);
+  }
+
+  h2 {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-2xl);
+  }
+
+  div :global(:last-child) {
+    margin-bottom: 0;
+  }
+</style>

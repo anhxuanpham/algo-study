@@ -1,0 +1,61 @@
+---
+interface Props {
+  caption: string;
+  columns: string[];
+  rows: string[][];
+}
+
+const { caption, columns, rows } = Astro.props;
+---
+
+<div class="trace-table" role="region" aria-label={caption} tabindex="0">
+  <table>
+    <caption>{caption}</caption>
+    <thead>
+      <tr>{columns.map((column) => <th scope="col">{column}</th>)}</tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            {row.map((cell) => (
+              <td>{cell}</td>
+            ))}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .trace-table {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    min-width: 32rem;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  caption {
+    padding-bottom: var(--space-3);
+    color: var(--muted);
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+
+  th {
+    background: var(--surface-muted);
+  }
+</style>

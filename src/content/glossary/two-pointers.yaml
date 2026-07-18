@@ -1,0 +1,10 @@
+id: two-pointers
+termVi: Hai con trỏ
+termEn: Two pointers
+aliases:
+  - two-pointer technique
+  - kỹ thuật hai con trỏ
+definition: Duy trì hai vị trí trong cùng hoặc hai cấu trúc dữ liệu và di chuyển chúng theo invariant để loại bỏ trạng thái không thể chứa đáp án.
+relatedTopicIds:
+  - arrays-basics
+status: review

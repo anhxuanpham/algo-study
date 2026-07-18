@@ -1,0 +1,35 @@
+---
+id: pair-sum-sorted-independent
+topicIds:
+  - arrays-basics
+patternIds:
+  - two-pointers
+kind: independent
+difficulty: easy
+constraints:
+  - temperatures được sắp xếp không giảm.
+  - temperatures.length nằm trong [2, 200000].
+  - Chỉ cần trả về true hoặc false.
+hints:
+  - Xác định điều gì thay đổi đơn điệu khi di chuyển left hoặc right.
+solutionRef: heat-pair-independent-solution
+language: typescript
+source:
+  title: USACO Guide — Two Pointers
+  url: https://usaco.guide/silver/two-pointers?lang=cpp
+author: Algo Study
+reviewVersion: 1
+status: review
+---
+
+# Có hai mức nhiệt tạo đúng độ chênh — independent
+
+Một cảm biến trả về mảng `temperatures` đã sắp xếp. Xác định có tồn tại hai giá trị khác vị trí sao cho tổng của chúng bằng `targetHeat` hay không.
+
+Bài này giữ structure của two pointers nhưng đổi bề mặt và output contract. Không mở solution trước khi viết invariant và ba edge cases.
+
+<span id="heat-pair-independent-solution"></span>
+
+## Solution outline
+
+Dùng hai endpoint, so sánh tổng hiện tại với `targetHeat`, rồi loại một endpoint bằng tính đơn điệu của mảng đã sắp xếp.
