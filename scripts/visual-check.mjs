@@ -16,7 +16,7 @@ const homeTypography = await page.evaluate(async () => {
   const headingStyle = getComputedStyle(heading);
   const bodyStyle = getComputedStyle(body);
   const displayFaces = await document.fonts.load(
-    `${headingStyle.fontWeight} ${headingStyle.fontSize} "Bricolage Grotesque Variable"`,
+    `${headingStyle.fontWeight} ${headingStyle.fontSize} "Be Vietnam Pro"`,
     heading.textContent ?? '',
   );
   const bodyFaces = await document.fonts.load(
