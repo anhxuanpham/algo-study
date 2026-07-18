@@ -1,13 +1,14 @@
-@import '@fontsource-variable/bricolage-grotesque/wght.css';
-@import '@fontsource-variable/chivo-mono/wght.css';
+@import '@fontsource-variable/jetbrains-mono/wght.css';
 @import '@fontsource/be-vietnam-pro/vietnamese-400.css';
 @import '@fontsource/be-vietnam-pro/vietnamese-500.css';
 @import '@fontsource/be-vietnam-pro/vietnamese-600.css';
 @import '@fontsource/be-vietnam-pro/vietnamese-700.css';
+@import '@fontsource/be-vietnam-pro/vietnamese-800.css';
 @import '@fontsource/be-vietnam-pro/latin-400.css';
 @import '@fontsource/be-vietnam-pro/latin-500.css';
 @import '@fontsource/be-vietnam-pro/latin-600.css';
 @import '@fontsource/be-vietnam-pro/latin-700.css';
+@import '@fontsource/be-vietnam-pro/latin-800.css';
 @import './tokens.css';
 
 * {
@@ -19,10 +20,18 @@ html {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 100%;
+  font-size: 106.25%; /* 17px root — easier long-form Vietnamese reading */
+  font-weight: 400;
+  letter-spacing: var(--tracking-body);
   line-height: var(--leading-body);
   scroll-padding-top: 5rem;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings:
+    'kern' 1,
+    'liga' 1,
+    'calt' 1;
 }
 
 body {
@@ -91,11 +100,11 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-weight: 650;
+  font-weight: 700;
   letter-spacing: var(--tracking-heading);
   line-height: var(--leading-heading);
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 code,

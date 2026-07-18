@@ -6,9 +6,9 @@ Technical editorial learning workspace. Hierarchy comes from typography, rule li
 
 ## Visual system
 
-- Bricolage Grotesque Variable (`--font-display`): brand statement and headings.
-- Be Vietnam Pro (`--font-body` / `--font-ui`): long-form reading and UI controls.
-- Chivo Mono Variable (`--font-mono`): code, indices, metadata, labels, and eyebrows only.
+- Be Vietnam Pro (`--font-display` / `--font-body` / `--font-ui`): one Vietnamese-native family for headings, reading, and controls so diacritics stay consistent.
+- JetBrains Mono Variable (`--font-mono`): code, indices, metadata, labels, and eyebrows only.
+- Prefer real weights 400/500/600/700/800; avoid ultra-tight tracking or sub-1.1 heading line-height on Vietnamese text.
 - Semantic tokens only: `canvas`, `surface`, `ink`, `muted`, `border`, `primary`, `action`, and status colors.
 - Light, dark, and system themes are designed together.
 - 8–12px radii; overlays alone receive substantial shadow.
