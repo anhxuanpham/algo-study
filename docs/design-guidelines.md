@@ -6,9 +6,10 @@ Technical editorial learning workspace. Hierarchy comes from typography, rule li
 
 ## Visual system
 
-- Be Vietnam Pro (`--font-display` / `--font-body` / `--font-ui`): one Vietnamese-native family for headings, reading, and controls so diacritics stay consistent.
+- Fraunces Variable (`--font-display`): soft editorial serif for brand and headings (SOFT/WONK/opsz axes, Vietnamese subset).
+- Be Vietnam Pro (`--font-body` / `--font-ui`): long-form reading and controls — clear Vietnamese marks.
 - JetBrains Mono Variable (`--font-mono`): code, indices, metadata, labels, and eyebrows only.
-- Prefer real weights 400/500/600/700/800; avoid ultra-tight tracking or sub-1.1 heading line-height on Vietnamese text.
+- Contrast comes from serif display vs sans reading; keep heading line-height ≥ ~1.08 so diacritics do not collide.
 - Semantic tokens only: `canvas`, `surface`, `ink`, `muted`, `border`, `primary`, `action`, and status colors.
 - Light, dark, and system themes are designed together.
 - 8–12px radii; overlays alone receive substantial shadow.

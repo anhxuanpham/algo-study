@@ -105,18 +105,27 @@ import { withBase } from '../config/site';
   }
 
   .hero h1 {
-    max-width: 14ch;
+    max-width: 12ch;
     margin: var(--space-8) 0 var(--space-6);
     font-size: var(--text-hero);
-    font-weight: 800;
+    font-weight: 700;
+    font-variation-settings:
+      'SOFT' 55,
+      'WONK' 0.65,
+      'opsz' 144;
     letter-spacing: var(--tracking-display);
     line-height: var(--leading-display);
   }
 
   .hero h1 em {
     color: var(--primary);
-    font-style: normal;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 550;
+    font-variation-settings:
+      'SOFT' 70,
+      'WONK' 0.8,
+      'opsz' 144;
   }
 
   .hero__lede {

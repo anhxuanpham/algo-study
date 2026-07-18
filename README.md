@@ -74,7 +74,7 @@ GitHub Actions workflow `deploy` builds with `GITHUB_PAGES=true` (base path `/al
 
 ## Design direction
 
-Technical editorial + coding workspace. Be Vietnam Pro carries Vietnamese headings, body, and UI so diacritics stay clear; JetBrains Mono is reserved for code/data. Cobalt/indigo primary, amber action, clear semantic states, restrained motion, and no structural emoji icons or decorative gradients.
+Technical editorial + coding workspace. Fraunces gives soft, characterful Vietnamese headings; Be Vietnam Pro keeps body and UI clear; JetBrains Mono is reserved for code/data. Cobalt/indigo primary, amber action, clear semantic states, restrained motion, and no structural emoji icons or decorative gradients.
 
 ## Accessibility baseline
 
