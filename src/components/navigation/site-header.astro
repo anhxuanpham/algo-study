@@ -1,13 +1,18 @@
 ---
-import { siteConfig } from '../../config/site';
+import { siteConfig, withBase } from '../../config/site';
 import { ThemeControl } from '../interactive/theme-control';
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const basePrefix = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
+const pathWithoutBase =
+  basePrefix && currentPath.startsWith(basePrefix)
+    ? currentPath.slice(basePrefix.length) || '/'
+    : currentPath;
 ---
 
 <header class="site-header">
   <div class="site-header__inner site-frame">
-    <a class="brand" href="/" aria-label={`${siteConfig.name}, trang chủ`}>
+    <a class="brand" href={withBase('/')} aria-label={`${siteConfig.name}, trang chủ`}>
       <span class="brand__mark" aria-hidden="true">AS</span>
       <span class="brand__name">{siteConfig.name}</span>
     </a>
@@ -15,10 +20,14 @@ const currentPath = Astro.url.pathname;
     <nav class="primary-nav" aria-label="Điều hướng chính">
       {
         siteConfig.navigation.map((item) => {
+          const normalizedHref = item.href.replace(/\/$/, '') || '/';
           const active =
-            item.href === '/' ? currentPath === '/' : currentPath.startsWith(item.href);
+            normalizedHref === '/'
+              ? pathWithoutBase === '/'
+              : pathWithoutBase === normalizedHref ||
+                pathWithoutBase.startsWith(`${normalizedHref}/`);
           return (
-            <a aria-current={active ? 'page' : undefined} href={item.href}>
+            <a aria-current={active ? 'page' : undefined} href={withBase(item.href)}>
               {item.label}
             </a>
           );

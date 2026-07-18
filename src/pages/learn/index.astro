@@ -1,0 +1,230 @@
+---
+import StatusBadge from '../../components/ui/status-badge.astro';
+import ButtonLink from '../../components/ui/button-link.astro';
+import BaseLayout from '../../layouts/base-layout.astro';
+import { withBase } from '../../config/site';
+import {
+  getPublishedLessons,
+  getPublishedProblems,
+  getPublishedTopics,
+  getPublishedTracks,
+} from '../../lib/content/queries';
+
+const [tracks, topics, lessons, problems] = await Promise.all([
+  getPublishedTracks(),
+  getPublishedTopics(),
+  getPublishedLessons(),
+  getPublishedProblems(),
+]);
+const topicById = new Map(topics.map((entry) => [entry.id, entry]));
+---
+
+<BaseLayout
+  title="Học"
+  description="Lộ trình published: track, topic, bài học và bài luyện từ content pipeline."
+>
+  <section class="learn-index site-frame">
+    <header class="learn-index__header">
+      <p class="eyebrow">Learner surface</p>
+      <h1>Bắt đầu với vertical slice đã publish</h1>
+      <p>
+        Đây là production routes cho nội dung <code>published</code>. Reviewer preview nội bộ vẫn
+        nằm ở <a href={withBase('/content-preview/')}>/content-preview/</a>.
+      </p>
+    </header>
+
+    {
+      tracks.length > 0 ? (
+        <section aria-labelledby="tracks-title">
+          <h2 id="tracks-title">Track</h2>
+          <ul class="card-list">
+            {tracks.map((track) => (
+              <li>
+                <article class="card">
+                  <StatusBadge tone="ready">published</StatusBadge>
+                  <h3>{track.data.titleVi}</h3>
+                  <p class="card__en">{track.data.titleEn}</p>
+                  <p>{track.data.audience}</p>
+                  <p class="card__meta">{track.data.topicIds.length} topic</p>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null
+    }
+
+    <section aria-labelledby="lessons-title">
+      <div class="section-heading">
+        <h2 id="lessons-title">Bài học published</h2>
+        <p>{lessons.length} lesson</p>
+      </div>
+      {
+        lessons.length > 0 ? (
+          <ol class="card-list">
+            {lessons.map((lesson) => {
+              const topic = topicById.get(lesson.data.topicId);
+              return (
+                <li>
+                  <article class="card">
+                    <div class="card__meta-row">
+                      <StatusBadge tone="ready">{lesson.data.status}</StatusBadge>
+                      <span>{topic?.data.titleVi ?? lesson.data.topicId}</span>
+                      <span>{lesson.data.estimatedMinutes} phút</span>
+                    </div>
+                    <h3>
+                      <a href={withBase(`/learn/lessons/${lesson.id}/`)}>{lesson.data.titleVi}</a>
+                    </h3>
+                    <p class="card__en">{lesson.data.titleEn}</p>
+                    <p>{lesson.data.description}</p>
+                    <div class="card__actions">
+                      <ButtonLink href={withBase(`/learn/lessons/${lesson.id}/`)}>
+                        Vào bài học
+                      </ButtonLink>
+                    </div>
+                  </article>
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <p>Chưa có lesson published.</p>
+        )
+      }
+    </section>
+
+    <section aria-labelledby="problems-title">
+      <div class="section-heading">
+        <h2 id="problems-title">Bài luyện published</h2>
+        <p>{problems.length} problem</p>
+      </div>
+      {
+        problems.length > 0 ? (
+          <ol class="card-list">
+            {problems.map((problem) => (
+              <li>
+                <article class="card">
+                  <div class="card__meta-row">
+                    <StatusBadge tone="ready">{problem.data.kind}</StatusBadge>
+                    <span>{problem.data.difficulty}</span>
+                  </div>
+                  <h3>
+                    <a href={withBase(`/learn/problems/${problem.id}/`)}>{problem.id}</a>
+                  </h3>
+                  <div class="card__actions">
+                    <ButtonLink
+                      href={withBase(`/learn/problems/${problem.id}/`)}
+                      variant="secondary"
+                    >
+                      Mở bài
+                    </ButtonLink>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p>Chưa có problem published.</p>
+        )
+      }
+    </section>
+  </section>
+</BaseLayout>
+
+<style>
+  .learn-index {
+    max-width: 72rem;
+    padding-block: var(--space-16);
+  }
+
+  .learn-index__header {
+    max-width: 66ch;
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  h1 {
+    margin-block: var(--space-5);
+    font-size: var(--text-3xl);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .learn-index__header > p:last-child {
+    color: var(--ink-soft);
+    font-size: var(--text-xl);
+  }
+
+  section + section {
+    margin-top: var(--space-12);
+  }
+
+  .section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
+    align-items: baseline;
+    margin-bottom: var(--space-6);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: var(--text-2xl);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .section-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .card-list {
+    display: grid;
+    gap: var(--space-6);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .card {
+    padding: var(--space-8);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .card__meta-row,
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  h3 {
+    margin: var(--space-5) 0 var(--space-2);
+    font-size: var(--text-2xl);
+  }
+
+  h3 a {
+    color: var(--ink);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.16em;
+  }
+
+  .card__en {
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .card__actions {
+    margin-top: var(--space-6);
+  }
+</style>

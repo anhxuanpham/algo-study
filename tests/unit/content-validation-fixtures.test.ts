@@ -105,7 +105,12 @@ function applyMutation(model: ContentModel, mutation: string) {
       if (model.lessons[0]) model.lessons[0].sourcePath = '/fixtures/wrong-name.mdx';
       return;
     case 'published-review-missing':
-      if (model.lessons[0]) model.lessons[0].data.status = 'published';
+      if (model.lessons[0]) {
+        model.lessons[0].data.status = 'published';
+        delete model.lessons[0].data.editorialReviewer;
+        delete model.lessons[0].data.technicalReviewer;
+        delete model.lessons[0].data.lastReviewedAt;
+      }
       return;
     case 'coverage-gap': {
       const domain = model.manifest.domains.find((entry) => entry.id === 'arrays-strings');

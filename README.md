@@ -4,7 +4,7 @@ Vietnamese-first algorithm learning platform focused on reasoning, visual traces
 
 ## Status
 
-Phase 2 content pipeline. The project includes the production foundation plus one reviewed arrays/two-pointers vertical slice that proves typed collections, MDX authoring components, graph/reference validation, and honest coverage reporting. Full curriculum coverage is not implemented yet.
+Preview release on `main`: production foundation, validated content pipeline, learner surface at `/learn/`, and one **published** arrays/two-pointers vertical slice (lesson + guided/independent problems + retrieval). Pattern `two-pointers` is covered; full mandatory curriculum is still partial/planned. Site deploys to GitHub Pages from `main`.
 
 ## Stack
 
@@ -24,12 +24,27 @@ npx playwright install chromium
 npm run dev
 ```
 
+Learner routes:
+
+- `/learn/` — published tracks, lessons, problems
+- `/learn/lessons/<id>/` — published lesson reader
+- `/learn/problems/<id>/` — published practice
+- `/content-preview/` — internal reviewer routes (`noindex`)
+
 Production verification:
 
 ```bash
 npm run check
 npm run test:e2e
 ```
+
+### Deploy
+
+GitHub Actions workflow `deploy` builds with `GITHUB_PAGES=true` (base path `/algo-study/`) and publishes `dist/` to GitHub Pages.
+
+1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**
+2. Merge to `main` (or run workflow manually)
+3. Site: `https://anhxuanpham.github.io/algo-study/`
 
 ## Commands
 

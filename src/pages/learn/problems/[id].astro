@@ -1,0 +1,103 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import StatusBadge from '../../../components/ui/status-badge.astro';
+import ButtonLink from '../../../components/ui/button-link.astro';
+import LearningLayout, {
+  type LearningNavigationItem,
+} from '../../../layouts/learning-layout.astro';
+import { withBase } from '../../../config/site';
+import { getPublishedLessons, getPublishedProblems } from '../../../lib/content/queries';
+
+export async function getStaticPaths() {
+  const problems = await getPublishedProblems();
+  return problems.map((problem) => ({
+    params: { id: problem.id },
+    props: { problem },
+  }));
+}
+
+interface Props {
+  problem: CollectionEntry<'problems'>;
+}
+
+const { problem } = Astro.props as Props;
+const lessons = await getPublishedLessons();
+const relatedLessons = lessons.filter((entry) => entry.data.problemIds.includes(problem.id));
+const curriculumItems: LearningNavigationItem[] = [
+  { href: withBase('/learn/'), label: 'Mục lục học' },
+  ...relatedLessons.map((entry) => ({
+    href: withBase(`/learn/lessons/${entry.id}/`),
+    label: entry.data.titleVi,
+  })),
+  {
+    href: withBase(`/learn/problems/${problem.id}/`),
+    label: problem.id,
+    current: true,
+  },
+];
+const { Content } = await render(problem);
+---
+
+<LearningLayout
+  title={problem.id}
+  description={`Bài ${problem.data.kind} · ${problem.data.difficulty}`}
+  curriculumLabel="Bài luyện"
+  curriculumItems={curriculumItems}
+  outlineItems={[]}
+>
+  <header class="problem-header">
+    <div class="problem-header__meta">
+      <StatusBadge tone="ready">{problem.data.kind}</StatusBadge>
+      <StatusBadge tone="neutral">{problem.data.difficulty}</StatusBadge>
+      <p class="eyebrow">{problem.data.language}</p>
+    </div>
+    <h1>{problem.id}</h1>
+    <p class="problem-header__lede">
+      Constraints và hints nằm trong body. Giữ invariant trước khi mở solution outline.
+    </p>
+    {
+      relatedLessons.length > 0 && (
+        <p class="problem-header__back">
+          <ButtonLink href={withBase(`/learn/lessons/${relatedLessons[0]!.id}/`)} variant="quiet">
+            ← Quay lại bài học
+          </ButtonLink>
+        </p>
+      )
+    }
+  </header>
+  <Content />
+</LearningLayout>
+
+<style>
+  .problem-header {
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .problem-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .problem-header__meta .eyebrow {
+    margin: 0;
+  }
+
+  h1 {
+    margin: var(--space-8) 0 var(--space-3);
+    font-size: var(--text-3xl);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .problem-header__lede {
+    max-width: 54ch;
+    color: var(--ink-soft);
+    font-size: var(--text-xl);
+  }
+
+  .problem-header__back {
+    margin-top: var(--space-6);
+  }
+</style>

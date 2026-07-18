@@ -15,7 +15,7 @@ test('reviewer index links to a noindex canonical lesson preview', async ({ page
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Hai con trỏ trên mảng tăng dần',
   );
-  await expect(page.getByText('review', { exact: true })).toBeVisible();
+  await expect(page.getByText('published', { exact: true })).toBeVisible();
   await expect(page.getByText(/Mảng và pattern hai con trỏ/)).toBeVisible();
   await expect(page.getByText('Canonical ID:')).toContainText('arrays-basics-01-two-pointers');
   await expect(page.getByRole('heading', { name: 'Sau bài này, bạn có thể' })).toBeVisible();

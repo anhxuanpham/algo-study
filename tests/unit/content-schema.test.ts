@@ -74,7 +74,7 @@ describe('content schemas and valid vertical slice', () => {
       'partial',
     );
     expect(result.coverage.patterns.find((item) => item.id === 'two-pointers')?.status).toBe(
-      'partial',
+      'covered',
     );
   });
 });

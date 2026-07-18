@@ -1,0 +1,150 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import StatusBadge from '../../../components/ui/status-badge.astro';
+import ButtonLink from '../../../components/ui/button-link.astro';
+import LearningLayout, {
+  type LearningNavigationItem,
+} from '../../../layouts/learning-layout.astro';
+import { withBase } from '../../../config/site';
+import {
+  getPublishedLessons,
+  getPublishedProblems,
+  getRequiredTopic,
+} from '../../../lib/content/queries';
+
+export async function getStaticPaths() {
+  const lessons = await getPublishedLessons();
+  const curriculumItems = lessons.map((entry) => ({
+    href: withBase(`/learn/lessons/${entry.id}/`),
+    label: entry.data.titleVi,
+    id: entry.id,
+  }));
+
+  return lessons.map((lesson) => ({
+    params: { id: lesson.id },
+    props: {
+      lesson,
+      curriculumItems: curriculumItems.map((item) => ({
+        href: item.href,
+        label: item.label,
+        current: item.id === lesson.id,
+      })),
+    },
+  }));
+}
+
+interface Props {
+  lesson: CollectionEntry<'lessons'>;
+  curriculumItems: LearningNavigationItem[];
+}
+
+const { lesson, curriculumItems } = Astro.props as Props;
+const topic = await getRequiredTopic(lesson.data.topicId);
+const publishedProblems = await getPublishedProblems();
+const relatedProblems = publishedProblems.filter((entry) =>
+  lesson.data.problemIds.includes(entry.id),
+);
+const outlineItems: LearningNavigationItem[] = [
+  { href: '#objectives', label: 'Mục tiêu' },
+  { href: '#practice', label: 'Luyện tập' },
+];
+const { Content } = await render(lesson);
+---
+
+<LearningLayout
+  title={lesson.data.titleVi}
+  description={lesson.data.description}
+  curriculumLabel="Bài học published"
+  curriculumItems={curriculumItems}
+  outlineItems={outlineItems}
+>
+  <header class="lesson-header">
+    <div class="lesson-header__meta">
+      <StatusBadge tone="ready">{lesson.data.status}</StatusBadge>
+      <p class="eyebrow">
+        {topic.data.titleVi} · {lesson.data.estimatedMinutes} phút · {lesson.data.codeLanguage}
+      </p>
+    </div>
+    <h1 id="objectives">{lesson.data.titleVi}</h1>
+    <p class="lesson-header__title-en">{lesson.data.titleEn}</p>
+    <p class="lesson-header__description">{lesson.data.description}</p>
+  </header>
+  <Content />
+  {
+    relatedProblems.length > 0 && (
+      <section class="practice" id="practice" aria-labelledby="practice-title">
+        <h2 id="practice-title">Luyện tập gắn với bài</h2>
+        <ul>
+          {relatedProblems.map((problem) => (
+            <li>
+              <ButtonLink
+                href={withBase(`/learn/problems/${problem.id}/`)}
+                variant={problem.data.kind === 'guided' ? 'primary' : 'secondary'}
+              >
+                {problem.data.kind === 'guided' ? 'Guided' : 'Independent'}: {problem.id}
+              </ButtonLink>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</LearningLayout>
+
+<style>
+  .lesson-header {
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .lesson-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .lesson-header__meta .eyebrow {
+    margin: 0;
+  }
+
+  h1 {
+    margin: var(--space-8) 0 var(--space-2);
+    font-size: var(--text-3xl);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .lesson-header__title-en {
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .lesson-header__description {
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: var(--text-xl);
+  }
+
+  .practice {
+    margin-top: var(--space-12);
+    padding-top: var(--space-10);
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .practice h2 {
+    margin: 0 0 var(--space-6);
+    font-size: var(--text-2xl);
+  }
+
+  .practice ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+</style>

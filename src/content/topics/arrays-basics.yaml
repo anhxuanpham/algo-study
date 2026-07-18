@@ -17,4 +17,4 @@ outcomes:
   - Giải thích khi nào thứ tự của mảng cho phép loại bỏ một phía.
   - Trace left, right và invariant sau mỗi comparison.
   - Phân tích time O(n) và space O(1) của pattern hai con trỏ.
-status: review
+status: published
