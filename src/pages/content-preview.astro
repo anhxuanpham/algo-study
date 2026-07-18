@@ -78,7 +78,7 @@ const statusTone = {
   h1 {
     margin-block: var(--space-5);
     font-size: var(--text-3xl);
-    letter-spacing: -0.05em;
+    letter-spacing: var(--tracking-heading);
   }
 
   .preview-index__header > p:last-child {
@@ -106,8 +106,9 @@ const statusTone = {
     gap: var(--space-3);
     align-items: center;
     color: var(--muted);
-    font-family: var(--font-mono);
+    font-family: var(--font-ui);
     font-size: var(--text-xs);
+    font-weight: 500;
   }
 
   h2 {
@@ -124,11 +125,17 @@ const statusTone = {
   .preview-list__title-en,
   .preview-list__id {
     color: var(--muted);
-    font-family: var(--font-mono);
     font-size: var(--text-sm);
+  }
+
+  .preview-list__title-en {
+    font-family: var(--font-ui);
+    font-weight: 500;
   }
 
   .preview-list__id {
     margin-bottom: 0;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
   }
 </style>

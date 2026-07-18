@@ -20,9 +20,9 @@
   background: var(--surface-muted);
   color: var(--ink-soft);
   cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 700;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
 }
 
 .learning-tabs__tab[aria-selected='true'] {

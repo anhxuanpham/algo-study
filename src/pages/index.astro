@@ -96,14 +96,15 @@ import BaseLayout from '../layouts/base-layout.astro';
     max-width: 11ch;
     margin: var(--space-8) 0 var(--space-6);
     font-size: var(--text-hero);
-    letter-spacing: -0.075em;
-    line-height: 0.86;
+    font-weight: 720;
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
   }
 
   .hero h1 em {
     color: var(--primary);
-    font-style: italic;
-    font-weight: 450;
+    font-style: normal;
+    font-weight: 430;
   }
 
   .hero__lede {
@@ -163,7 +164,7 @@ import BaseLayout from '../layouts/base-layout.astro';
     max-width: 21ch;
     margin: 0;
     font-size: var(--text-3xl);
-    letter-spacing: -0.045em;
+    letter-spacing: var(--tracking-heading);
   }
 
   .principles__grid {

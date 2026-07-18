@@ -20,6 +20,18 @@ export default [
     },
   },
   {
+    // Playwright probes: outer file is Node, page.evaluate callbacks run in the browser.
+    files: ['scripts/visual-check.mjs'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        document: 'readonly',
+        getComputedStyle: 'readonly',
+        process: 'readonly',
+      },
+    },
+  },
+  {
     files: ['**/*.{jsx,tsx}'],
     ...jsxA11y.flatConfigs.recommended,
     languageOptions: {

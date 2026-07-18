@@ -88,14 +88,23 @@ const { Content } = await render(lesson);
   h1 {
     margin: var(--space-8) 0 var(--space-2);
     font-size: var(--text-3xl);
-    letter-spacing: -0.055em;
+    letter-spacing: var(--tracking-heading);
   }
 
   .lesson-header__title-en,
   .lesson-header__id {
     color: var(--muted);
-    font-family: var(--font-mono);
     font-size: var(--text-sm);
+  }
+
+  .lesson-header__title-en {
+    font-family: var(--font-ui);
+    font-weight: 500;
+  }
+
+  .lesson-header__id {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
   }
 
   .lesson-header__description {

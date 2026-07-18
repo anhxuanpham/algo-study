@@ -59,7 +59,7 @@ npm run test:e2e
 
 ## Design direction
 
-Technical editorial + coding workspace. IBM Plex Sans for reading/UI, JetBrains Mono for code/data labels, cobalt/indigo primary, amber action, clear semantic states, restrained motion, and no structural emoji icons or decorative gradients.
+Technical editorial + coding workspace. Bricolage Grotesque gives headings a contemporary technical voice, Be Vietnam Pro keeps Vietnamese reading and UI clear, and Chivo Mono is reserved for code/data. Cobalt/indigo primary, amber action, clear semantic states, restrained motion, and no structural emoji icons or decorative gradients.
 
 ## Accessibility baseline
 
