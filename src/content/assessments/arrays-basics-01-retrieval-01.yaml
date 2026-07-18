@@ -15,4 +15,4 @@ feedbackByMisconception:
   move-right: Giảm right làm tổng không tăng trong mảng tăng dần; bước này đi ngược mục tiêu.
   skip-random: Hai con trỏ loại phần tử bằng invariant về thứ tự, không phải bằng lựa chọn ngẫu nhiên.
 reviewable: true
-status: review
+status: published

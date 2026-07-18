@@ -21,8 +21,24 @@ export async function getPreviewLessons() {
   return (await getLessons()).filter((entry) => entry.data.status !== 'planned');
 }
 
+export async function getPublishedLessons() {
+  return (await getLessons()).filter((entry) => entry.data.status === 'published');
+}
+
 export async function getProblems() {
   return (await getCollection('problems')).sort(byId);
+}
+
+export async function getPublishedProblems() {
+  return (await getProblems()).filter((entry) => entry.data.status === 'published');
+}
+
+export async function getPublishedTracks() {
+  return (await getTracks()).filter((entry) => entry.data.status === 'published');
+}
+
+export async function getPublishedTopics() {
+  return (await getTopics()).filter((entry) => entry.data.status === 'published');
 }
 
 export async function getRequiredTrack(id: string): Promise<CollectionEntry<'tracks'>> {

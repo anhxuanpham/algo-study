@@ -7,7 +7,8 @@ vi.mock('astro:content', () => ({
   getEntry: vi.fn(),
 }));
 
-const { getPreviewLessons } = await import('../../src/lib/content/queries');
+const { getPreviewLessons, getPublishedLessons, getPublishedProblems } =
+  await import('../../src/lib/content/queries');
 
 describe('content queries', () => {
   beforeEach(() => {
@@ -27,6 +28,25 @@ describe('content queries', () => {
       'published-lesson',
       'review-lesson',
     ]);
+  });
+
+  it('returns only published lessons and problems', async () => {
+    getCollection.mockImplementation(async (collection: string) => {
+      if (collection === 'lessons') {
+        return [
+          lessonEntry('planned-lesson', 'planned'),
+          lessonEntry('published-lesson', 'published'),
+          lessonEntry('review-lesson', 'review'),
+        ];
+      }
+      return [
+        { id: 'draft-problem', data: { status: 'draft' } },
+        { id: 'published-problem', data: { status: 'published' } },
+      ];
+    });
+
+    expect((await getPublishedLessons()).map((entry) => entry.id)).toEqual(['published-lesson']);
+    expect((await getPublishedProblems()).map((entry) => entry.id)).toEqual(['published-problem']);
   });
 });
 

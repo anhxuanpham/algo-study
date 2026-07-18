@@ -3,6 +3,7 @@ import ButtonLink from '../components/ui/button-link.astro';
 import ProgressMeter from '../components/ui/progress-meter.astro';
 import StatusBadge from '../components/ui/status-badge.astro';
 import BaseLayout from '../layouts/base-layout.astro';
+import { withBase } from '../config/site';
 ---
 
 <BaseLayout>
@@ -18,7 +19,7 @@ import BaseLayout from '../layouts/base-layout.astro';
         đích — từ nền tảng tới technical interview.
       </p>
       <div class="hero__actions">
-        <ButtonLink href="/foundation-preview/">Xem foundation preview</ButtonLink>
+        <ButtonLink href={withBase('/learn/')}>Bắt đầu học</ButtonLink>
         <ButtonLink href="#system" variant="secondary">Khám phá hệ thống</ButtonLink>
       </div>
     </div>
@@ -62,13 +63,24 @@ import BaseLayout from '../layouts/base-layout.astro';
   <section class="status-band" aria-labelledby="status-title">
     <div class="status-band__inner site-frame">
       <div>
-        <StatusBadge tone="warning">Foundation phase</StatusBadge>
-        <h2 id="status-title">Đường ray đã sẵn sàng.</h2>
-        <p>Design tokens, zero-JS content baseline, responsive shell và quality gates.</p>
+        <StatusBadge tone="ready">Preview release</StatusBadge>
+        <h2 id="status-title">Vertical slice two-pointers đã publish.</h2>
+        <p>
+          Content pipeline, learner routes <code>/learn/</code>, coverage đo được và quality gates.
+          Full curriculum vẫn đang mở.
+        </p>
+        <div class="status-band__actions">
+          <ButtonLink href={withBase('/learn/lessons/arrays-basics-01-two-pointers/')}>
+            Vào bài two-pointers
+          </ButtonLink>
+          <ButtonLink href={withBase('/foundation-preview/')} variant="secondary">
+            Foundation preview
+          </ButtonLink>
+        </div>
       </div>
       <div class="status-band__meter">
-        <ProgressMeter label="Foundation implementation" value={18} />
-        <p class="eyebrow">Preview metric · not learner mastery</p>
+        <ProgressMeter label="Mandatory coverage (preview honesty)" value={6} />
+        <p class="eyebrow">Pattern covered · domain partial · not v1.0</p>
       </div>
     </div>
   </section>
@@ -224,6 +236,25 @@ import BaseLayout from '../layouts/base-layout.astro';
 
   .status-band__meter .eyebrow {
     margin: var(--space-4) 0 0;
+  }
+
+  .status-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .status-band__actions :global(.button-link--primary) {
+    border-color: var(--canvas);
+    background: var(--canvas);
+    color: var(--ink);
+  }
+
+  .status-band__actions :global(.button-link--secondary) {
+    border-color: color-mix(in srgb, var(--canvas), transparent 40%);
+    background: transparent;
+    color: var(--canvas);
   }
 
   @media (max-width: 63.99rem) {

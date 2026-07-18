@@ -20,11 +20,21 @@ export const sourceSchema = z
   })
   .strict();
 
+const isoDateStringSchema = z.preprocess(
+  (value) => {
+    if (value instanceof Date && !Number.isNaN(value.valueOf())) {
+      return value.toISOString().slice(0, 10);
+    }
+    return value;
+  },
+  z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use YYYY-MM-DD.'),
+);
+
 const reviewFields = {
   author: z.string().min(1),
   editorialReviewer: z.string().min(1).optional(),
   technicalReviewer: z.string().min(1).optional(),
-  lastReviewedAt: z.iso.date().optional(),
+  lastReviewedAt: isoDateStringSchema.optional(),
   reviewVersion: z.number().int().positive(),
 };
 

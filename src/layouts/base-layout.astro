@@ -1,7 +1,7 @@
 ---
 import SiteFooter from '../components/navigation/site-footer.astro';
 import SiteHeader from '../components/navigation/site-header.astro';
-import { siteConfig } from '../config/site';
+import { siteConfig, withBase } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
@@ -19,7 +19,9 @@ const {
 } = Astro.props;
 const documentTitle = title === siteConfig.name ? title : `${title} · ${siteConfig.name}`;
 const canonical = new URL(Astro.url.pathname, siteConfig.canonicalUrl);
-const socialImage = new URL(image, siteConfig.canonicalUrl);
+const socialImage = new URL(withBase(image), siteConfig.canonicalUrl);
+const faviconHref = withBase('/favicon.svg');
+const themeBootstrapHref = withBase('/theme-bootstrap.js');
 ---
 
 <!doctype html>
@@ -38,9 +40,9 @@ const socialImage = new URL(image, siteConfig.canonicalUrl);
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={faviconHref} type="image/svg+xml" />
     <title>{documentTitle}</title>
-    <script is:inline src="/theme-bootstrap.js"></script>
+    <script is:inline src={themeBootstrapHref}></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Bỏ qua điều hướng</a>

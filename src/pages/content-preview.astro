@@ -1,6 +1,7 @@
 ---
 import StatusBadge from '../components/ui/status-badge.astro';
 import BaseLayout from '../layouts/base-layout.astro';
+import { withBase } from '../config/site';
 import { getPreviewLessons, getTopics } from '../lib/content/queries';
 
 const lessons = await getPreviewLessons();
@@ -23,8 +24,8 @@ const statusTone = {
       <p class="eyebrow">Internal reviewer preview</p>
       <h1>Nội dung đang được review</h1>
       <p>
-        Các route này dùng content collection thật nhưng không phải learner-facing publication. Chỉ
-        nội dung <code>published</code> mới đủ điều kiện cho production routes sau này.
+        Các route này dùng content collection thật cho reviewer nội bộ. Learner-facing publication
+        nằm ở <a href={withBase('/learn/')}>/learn/</a> cho nội dung <code>published</code>.
       </p>
     </header>
 
@@ -44,7 +45,7 @@ const statusTone = {
                     <span>{lesson.data.estimatedMinutes} phút</span>
                   </div>
                   <h2>
-                    <a href={`/content-preview/${lesson.id}/`}>{lesson.data.titleVi}</a>
+                    <a href={withBase(`/content-preview/${lesson.id}/`)}>{lesson.data.titleVi}</a>
                   </h2>
                   <p class="preview-list__title-en">{lesson.data.titleEn}</p>
                   <p>{lesson.data.description}</p>
