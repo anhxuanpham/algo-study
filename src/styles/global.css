@@ -18,11 +18,12 @@
 }
 
 html {
-  min-width: 20rem;
+  /* Use px so a larger root font-size does not force min-width past 320 CSS px. */
+  min-width: 320px;
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 106.25%; /* 17px root — easier long-form Vietnamese reading */
+  font-size: 106.25%; /* ~17px root — easier long-form Vietnamese reading */
   font-weight: 400;
   letter-spacing: var(--tracking-body);
   line-height: var(--leading-body);
